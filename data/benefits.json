@@ -1,0 +1,98 @@
+[
+  {
+    "id": "rent_subsidy",
+    "name_he": "סיוע בשכר דירה",
+    "name_en": "Rent Subsidy (Siyua B'Schar Dira)",
+    "description_he": "סובסידיה חודשית שמשלמת המדינה לשוכרים זכאים. הסכום תלוי בגודל המשפחה, ההכנסה והמיקום הגיאוגרפי.",
+    "description_en": "Monthly cash subsidy paid by the state to eligible renters. Amount depends on family size, income, and geographic area.",
+    "monthly_amount_nis": 1800,
+    "one_time_amount_nis": null,
+    "link": "https://www.gov.il/he/departments/guides/rent_assistance",
+    "eligibility": {
+      "requires_no_home": true,
+      "max_income": 25000,
+      "min_family_size": 1,
+      "requires_oleh": false
+    }
+  },
+  {
+    "id": "mechir_lemishtaken",
+    "name_he": "מחיר למשתכן",
+    "name_en": "Mechir Lemishtaken (Affordable Housing Lottery)",
+    "description_he": "הגרלת דירות בהנחה משמעותית ממחיר השוק לזכאים שאינם בעלי דירה. רישום מקוון דרך אתר רמ\"י.",
+    "description_en": "Discounted apartment lottery for non-homeowners, priced significantly below market. Register online via the Israel Land Authority.",
+    "monthly_amount_nis": null,
+    "one_time_amount_nis": null,
+    "link": "https://www.dira.moch.gov.il/",
+    "eligibility": {
+      "requires_no_home": true,
+      "max_income": 35000,
+      "min_family_size": 1,
+      "requires_oleh": false
+    }
+  },
+  {
+    "id": "amidar",
+    "name_he": "דיור ציבורי — עמידר",
+    "name_en": "Amidar Public Housing",
+    "description_he": "רשימת המתנה לדיור ציבורי מסובסד עבור משפחות ויחידים בקשיים כלכליים. ניהול על ידי עמידר — החברה הלאומית לשיכון.",
+    "description_en": "Waiting list for subsidized public housing for families and individuals in financial hardship. Managed by Amidar National Housing Company.",
+    "monthly_amount_nis": null,
+    "one_time_amount_nis": null,
+    "link": "https://www.amidar.co.il/",
+    "eligibility": {
+      "requires_no_home": true,
+      "max_income": 12000,
+      "min_family_size": 1,
+      "requires_oleh": false
+    }
+  },
+  {
+    "id": "oleh_housing_grant",
+    "name_he": "מענק דיור לעולה חדש",
+    "name_en": "Oleh Chadash Housing Grant",
+    "description_he": "מענק חד-פעמי לסיוע בדיור לעולים חדשים. הסכום משתנה בהתאם לגודל המשפחה ומספר שנות הוותק בארץ.",
+    "description_en": "One-time housing grant for new immigrants (Aliyah). Amount varies by family size and years since aliyah.",
+    "monthly_amount_nis": null,
+    "one_time_amount_nis": 25000,
+    "link": "https://www.gov.il/he/departments/guides/aliya_housing_grant",
+    "eligibility": {
+      "requires_no_home": false,
+      "max_income": 999999,
+      "min_family_size": 1,
+      "requires_oleh": true
+    }
+  },
+  {
+    "id": "young_couples_grant",
+    "name_he": "מענק לזוגות צעירים",
+    "name_en": "Young Couples Grant",
+    "description_he": "סיוע במשכנתה לרוכשי דירה ראשונה מתחת לגיל 35. הסכום עולה עבור ילדים ועבור רכישה באזורי עדיפות.",
+    "description_en": "Mortgage assistance for first-time homebuyers under 35. Amount increases for children and for purchases in priority areas.",
+    "monthly_amount_nis": null,
+    "one_time_amount_nis": 60000,
+    "link": "https://www.moch.gov.il/",
+    "eligibility": {
+      "requires_no_home": true,
+      "max_income": 40000,
+      "min_family_size": 2,
+      "requires_oleh": false
+    }
+  },
+  {
+    "id": "peripheral_benefit",
+    "name_he": "הטבה לאזורי עדיפות לאומית",
+    "name_en": "Peripheral Area Priority Benefit",
+    "description_he": "מענקים ותמריצי מס נוספים למי שמתגורר או רוכש נכס בבאר שבע, חיפה, הגליל, הנגב ואזורים מוכרזים אחרים.",
+    "description_en": "Additional grants and tax incentives for those residing in or purchasing property in Beer Sheva, Haifa, the Galilee, Negev, and other designated priority areas.",
+    "monthly_amount_nis": null,
+    "one_time_amount_nis": 40000,
+    "link": "https://www.gov.il/he/departments/topics/priority-areas",
+    "eligibility": {
+      "requires_no_home": false,
+      "max_income": 999999,
+      "min_family_size": 1,
+      "requires_oleh": false
+    }
+  }
+]
