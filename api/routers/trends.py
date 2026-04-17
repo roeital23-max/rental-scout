@@ -77,19 +77,39 @@ def _trailing_12_months() -> list[tuple[int, int]]:
 
 
 def _current_median(city: str, neighborhood: str) -> Optional[int]:
-    """Median price from the most recent JSON scrape (all room counts)."""
+    """Median price from Supabase (preferred) or local JSON fallback."""
+    # Try Supabase first
+    try:
+        from api.db import get_supabase, has_supabase
+        if has_supabase():
+            sb = get_supabase()
+            resp = (
+                sb.table("listings")
+                .select("price_nis")
+                .eq("city", city)
+                .eq("neighborhood", neighborhood)
+                .eq("listing_type", "apartment")
+                .execute()
+            )
+            prices = sorted(r["price_nis"] for r in (resp.data or []))
+            if prices:
+                mid = len(prices) // 2
+                return prices[mid] if len(prices) % 2 else (prices[mid - 1] + prices[mid]) // 2
+    except Exception:
+        pass
+
+    # JSON fallback (local dev)
     if not DATA_FILE.exists():
         return None
     with open(DATA_FILE, encoding="utf-8") as f:
         listings = json.load(f)
-    prices = [
+    prices = sorted(
         l["price_nis"]
         for l in listings
         if l.get("city") == city and l.get("neighborhood") == neighborhood
-    ]
+    )
     if not prices:
         return None
-    prices.sort()
     mid = len(prices) // 2
     return prices[mid] if len(prices) % 2 else (prices[mid - 1] + prices[mid]) // 2
 
