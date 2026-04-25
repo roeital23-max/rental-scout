@@ -73,8 +73,8 @@ export default function HomePage() {
         </div>
 
         <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4" style={{ color: "#1A2730" }}>
-          {t.heroTitle}
-          <br />
+          {t.heroTitle}{" "}
+          <br className="hidden md:block" />
           <span style={{ color: "#1E7B7B" }}>{t.heroHighlight}</span>
         </h1>
 
