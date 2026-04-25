@@ -10,10 +10,6 @@ const CITIES_HE = [
   { value: "jerusalem", label: "ירושלים" },
   { value: "haifa", label: "חיפה" },
   { value: "beer_sheva", label: "באר שבע" },
-  { value: "rishon_lezion", label: "ראשון לציון" },
-  { value: "petah_tikva", label: "פתח תקווה" },
-  { value: "ashdod", label: "אשדוד" },
-  { value: "netanya", label: "נתניה" },
 ];
 
 const CITIES_EN = [
@@ -21,10 +17,6 @@ const CITIES_EN = [
   { value: "jerusalem", label: "Jerusalem" },
   { value: "haifa", label: "Haifa" },
   { value: "beer_sheva", label: "Beer Sheva" },
-  { value: "rishon_lezion", label: "Rishon LeZion" },
-  { value: "petah_tikva", label: "Petah Tikva" },
-  { value: "ashdod", label: "Ashdod" },
-  { value: "netanya", label: "Netanya" },
 ];
 
 const ROOMS = [
