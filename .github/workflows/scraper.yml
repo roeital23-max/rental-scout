@@ -32,8 +32,11 @@ jobs:
           pip install -r scraper/requirements.txt
           pip install -r requirements.txt
 
+      - name: Install Playwright system dependencies
+        run: python -m playwright install-deps chromium
+
       - name: Install Playwright browsers
-        run: python -m playwright install chromium --with-deps
+        run: python -m playwright install chromium
 
       - name: Scrape ${{ matrix.city }}
         run: xvfb-run --auto-servernum python scraper/run.py --playwright --city ${{ matrix.city }}
