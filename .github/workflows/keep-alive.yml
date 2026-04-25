@@ -1,0 +1,17 @@
+name: Keep Supabase alive
+
+on:
+  schedule:
+    - cron: "0 8 */3 * *"  # every 3 days at 08:00 UTC
+  workflow_dispatch:        # allow manual trigger
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping API (forces a Supabase query)
+        run: |
+          curl -sf --max-time 60 \
+            "https://rental-scout-kvrh.onrender.com/api/listings?city=tel_aviv&rooms=3" \
+            -o /dev/null \
+            && echo "OK" || echo "Ping failed (Render may be cold-starting)"
