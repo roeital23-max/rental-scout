@@ -8,7 +8,12 @@ on:
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    timeout-minutes: 180      # 3h hard cap — full 4-city run takes ~2h
+    timeout-minutes: 90       # 1.5h per city — plenty of headroom
+
+    strategy:
+      fail-fast: false        # if one city fails, others keep running
+      matrix:
+        city: [tel_aviv, jerusalem, haifa, beer_sheva]
 
     env:
       SUPABASE_URL:      ${{ secrets.SUPABASE_URL }}
@@ -25,10 +30,10 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r scraper/requirements.txt
-          pip install -r requirements.txt   # api/db.py (supabase client)
+          pip install -r requirements.txt
 
       - name: Install Playwright browsers
         run: python -m playwright install chromium --with-deps
 
-      - name: Run scraper (all cities, headed Chromium via Xvfb)
-        run: xvfb-run --auto-servernum python scraper/run.py --playwright
+      - name: Scrape ${{ matrix.city }}
+        run: xvfb-run --auto-servernum python scraper/run.py --playwright --city ${{ matrix.city }}
