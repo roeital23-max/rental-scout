@@ -8,10 +8,10 @@ on:
 jobs:
   scrape:
     runs-on: self-hosted
-    timeout-minutes: 90       # 1.5h per city — plenty of headroom
+    timeout-minutes: 90
 
     strategy:
-      fail-fast: false        # if one city fails, others keep running
+      fail-fast: false
       matrix:
         city: [tel_aviv, jerusalem, haifa, beer_sheva]
 
@@ -19,24 +19,21 @@ jobs:
       SUPABASE_URL:      ${{ secrets.SUPABASE_URL }}
       SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
 
-    steps:
-      - uses: actions/checkout@v4
+    defaults:
+      run:
+        working-directory: /Users/roeital/Documents/Rental Scout
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-          cache: pip
+    steps:
+      - name: Pull latest code
+        run: git pull
 
       - name: Install dependencies
         run: |
-          pip install -r scraper/requirements.txt
-          pip install -r requirements.txt
-
-      - name: Install Playwright system dependencies
-        run: python -m playwright install-deps chromium
+          python3 -m pip install -r scraper/requirements.txt
+          python3 -m pip install -r requirements.txt
 
       - name: Install Playwright browsers
-        run: python -m playwright install chromium
+        run: python3 -m playwright install chromium
 
       - name: Scrape ${{ matrix.city }}
-        run: xvfb-run --auto-servernum python scraper/run.py --playwright --city ${{ matrix.city }}
+        run: python3 scraper/run.py --playwright --city ${{ matrix.city }}
