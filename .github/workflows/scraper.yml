@@ -1,0 +1,34 @@
+name: Nightly scraper
+
+on:
+  schedule:
+    - cron: "0 2 */2 * *"   # every 2 days at 02:00 UTC (04:00 Israel time)
+  workflow_dispatch:          # allow manual trigger from GitHub UI
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180      # 3h hard cap — full 4-city run takes ~2h
+
+    env:
+      SUPABASE_URL:      ${{ secrets.SUPABASE_URL }}
+      SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          pip install -r scraper/requirements.txt
+          pip install -r requirements.txt   # api/db.py (supabase client)
+
+      - name: Install Playwright browsers
+        run: python -m playwright install chromium --with-deps
+
+      - name: Run scraper (all cities, headed Chromium via Xvfb)
+        run: xvfb-run --auto-servernum python scraper/run.py --playwright
