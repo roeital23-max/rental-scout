@@ -51,7 +51,7 @@ export default function PricingPage() {
       <div className="text-center mb-10 md:mb-12">
         <h1 className="text-2xl md:text-3xl font-bold text-txt-primary mb-2">
           {t.pricingTitle}{" "}
-          <span style={{ color: "#00E5A0" }}>{t.pricingHighlight}</span>
+          <span style={{ color: "#1E7B7B" }}>{t.pricingHighlight}</span>
         </h1>
         <p className="text-txt-secondary">{t.pricingSub}</p>
       </div>
@@ -73,9 +73,10 @@ function PlanCard({ plan }: { plan: Plan }) {
     <div
       className="flex flex-col gap-5 p-6 relative"
       style={{
-        backgroundColor: "#0D1421",
+        backgroundColor: "#FFFFFF",
         borderRadius: "12px",
-        border: plan.popular ? "1px solid #00E5A0" : "1px solid #1e2a3a",
+        border: plan.popular ? "1.5px solid #1E7B7B" : "1px solid #DDE4E8",
+        boxShadow: plan.popular ? "0 4px 28px rgba(30,123,123,0.12)" : "0 2px 8px rgba(30,123,123,0.04)",
       }}
     >
       {/* Popular badge */}
@@ -83,8 +84,8 @@ function PlanCard({ plan }: { plan: Plan }) {
         <div
           className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 text-xs font-semibold"
           style={{
-            backgroundColor: "#00E5A0",
-            color: "#0A0E1A",
+            backgroundColor: "#1E7B7B",
+            color: "#FFFFFF",
             borderRadius: "99px",
             whiteSpace: "nowrap",
           }}
@@ -99,7 +100,7 @@ function PlanCard({ plan }: { plan: Plan }) {
         <div className="flex items-baseline gap-1">
           <span
             className="text-3xl font-bold text-txt-primary"
-            style={{ fontFamily: "var(--font-space-mono), monospace" }}
+            style={{ fontFamily: "var(--font-dm-mono), monospace" }}
           >
             {plan.price}
           </span>
@@ -114,7 +115,7 @@ function PlanCard({ plan }: { plan: Plan }) {
       <ul className="flex flex-col gap-2 flex-1">
         {plan.features.map((featureKey) => (
           <li key={featureKey} className="flex items-center gap-2 text-sm text-txt-primary">
-            <span style={{ color: "#00E5A0", flexShrink: 0 }}>✓</span>
+            <span style={{ color: "#1E7B7B", flexShrink: 0 }}>✓</span>
             {t[featureKey]}
           </li>
         ))}
@@ -125,12 +126,12 @@ function PlanCard({ plan }: { plan: Plan }) {
         className="w-full py-3 text-sm font-semibold transition-all duration-200 hover:opacity-90 active:scale-[0.98] mt-auto"
         style={
           plan.popular
-            ? { backgroundColor: "#00E5A0", color: "#0A0E1A", borderRadius: "8px" }
+            ? { backgroundColor: "#1E7B7B", color: "#FFFFFF", borderRadius: "8px", boxShadow: "0 4px 14px rgba(30,123,123,0.28)" }
             : {
                 backgroundColor: "transparent",
-                color: "#00E5A0",
+                color: "#1E7B7B",
                 borderRadius: "8px",
-                border: "1px solid #00E5A050",
+                border: "1px solid #1E7B7B50",
               }
         }
       >

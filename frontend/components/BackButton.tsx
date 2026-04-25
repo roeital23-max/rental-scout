@@ -4,7 +4,8 @@ export default function BackButton({ label }: { label: string }) {
   return (
     <button
       onClick={() => window.history.back()}
-      className="text-sm text-[#8899AA] hover:text-[#E8EDF5] transition-colors flex items-center gap-1"
+      className="text-sm transition-opacity hover:opacity-70 flex items-center gap-1"
+      style={{ color: "#637280" }}
     >
       {label}
     </button>

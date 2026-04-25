@@ -15,11 +15,11 @@ export const strings = {
     featPricingSub: "התחל חינם עם 5 חיפושים ביום. שדרג לתראות WhatsApp ועוד.",
 
     // Home — hero
-    badge: "שוק שכירות ישראל · ניתוח חכם",
-    heroTitle: "גלה עסקאות שכירות",
-    heroHighlight: "מתחת למחיר השוק",
-    heroSub: "השווה כל דירה למדיית השכונה לפני שאתה חותם.",
-    heroData: 'ניתוח מבוסס נתוני יד2, נדל"ן.gov ולמ"ס.',
+    badge: "שוק השכירות בישראל · ניתוח חכם",
+    heroTitle: "מצא את הבית הבא שלך",
+    heroHighlight: "במחיר הוגן",
+    heroSub: "השווה כל דירה לחציון השכונה לפני שאתה חותם.",
+    heroData: "מופעל על ידי בינת נתונים",
 
     // Home — search form
     cityLabel: "עיר",
@@ -33,7 +33,7 @@ export const strings = {
     // Home — trust badges
     trustListings: "~30,000 דירות פעילות",
     trustUpdate: "מתעדכן כל 6 שעות",
-    trustData: 'נתוני יד2 + נדל"ן.gov',
+    trustData: "מבוסס נתונים אמינים",
 
     // Results
     backToSearch: "→ חזור לחיפוש",
@@ -57,12 +57,12 @@ export const strings = {
 
     // Listing detail page
     backToResults: "→ חזרה לתוצאות",
-    viewOnYad2: "לצפייה במודעה ב-Yad2",
+    viewOnYad2: "לצפייה במודעה המקורית",
     priceAnalysis: "ניתוח מחיר",
     neighborhoodTrends: "מגמות שכונה",
     listedOn: "פורסם",
     pricePerSqm: '₪/מ"ר',
-    medianLabel: "מדיית השכונה",
+    medianLabel: "חציון בשכונה",
     roommateNotice: "מודעה זו מפרסמת חדר בשיתוף — המחיר הוא לחדר בודד, לא לדירה שלמה.",
     parkingNotice: "מודעה זו היא עבור חנייה או אחסון — לא דירה להשכרה.",
 
@@ -137,10 +137,10 @@ export const strings = {
 
     // Home — hero
     badge: "Israel Rental Market · Smart Analysis",
-    heroTitle: "Find Rental Deals",
-    heroHighlight: "Below Market Price",
+    heroTitle: "Find Your Next Home",
+    heroHighlight: "At a Fair Price",
     heroSub: "Compare every apartment to the neighborhood median before you sign.",
-    heroData: "Powered by Yad2, Nadlan.gov & CBS data.",
+    heroData: "Powered by Data Intelligence",
 
     // Home — search form
     cityLabel: "City",
@@ -154,7 +154,7 @@ export const strings = {
     // Home — trust badges
     trustListings: "~30,000 active listings",
     trustUpdate: "Updated every 6 hours",
-    trustData: "Yad2 + Nadlan.gov data",
+    trustData: "Powered by reliable data",
 
     // Results
     backToSearch: "← Back to search",
@@ -178,7 +178,7 @@ export const strings = {
 
     // Listing detail page
     backToResults: "← Back to results",
-    viewOnYad2: "View listing on Yad2",
+    viewOnYad2: "View original listing",
     priceAnalysis: "Price Analysis",
     neighborhoodTrends: "Neighborhood Trends",
     listedOn: "Listed",

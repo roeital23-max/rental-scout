@@ -18,19 +18,12 @@ export default function Header() {
   return (
     <header
       className="sticky top-0 z-40 h-14 border-b"
-      style={{ backgroundColor: "#0D1421", borderColor: "#1e2a3a" }}
+      style={{ backgroundColor: "#1A2730", borderColor: "#243340" }}
     >
-      <div className="max-w-6xl mx-auto px-4 h-full flex items-center justify-between gap-4">
+      <div className="max-w-6xl mx-auto px-4 h-full flex items-center justify-between gap-4" dir="ltr">
         {/* Logo */}
-        <Link
-          href="/"
-          className="text-sm font-medium transition-opacity hover:opacity-80 flex-shrink-0"
-          style={{
-            fontFamily: "var(--font-space-mono), monospace",
-            color: "#00E5A0",
-          }}
-        >
-          Rental Scout
+        <Link href="/" className="flex-shrink-0 hover:opacity-90 transition-opacity" style={{ fontSize: 22, fontWeight: 800, color: "#fff", letterSpacing: -0.5 }}>
+          Shakuf
         </Link>
 
         {/* Nav links — hidden on mobile, visible md+ */}
@@ -43,8 +36,8 @@ export default function Header() {
                 href={href}
                 className="px-3 py-1.5 text-sm rounded-md transition-colors"
                 style={{
-                  color: isActive ? "#00E5A0" : "#8899AA",
-                  backgroundColor: isActive ? "rgba(0, 229, 160, 0.08)" : "transparent",
+                  color: isActive ? "#6BB8B8" : "rgba(255,255,255,0.5)",
+                  backgroundColor: isActive ? "rgba(30,123,123,0.15)" : "transparent",
                 }}
               >
                 {label}

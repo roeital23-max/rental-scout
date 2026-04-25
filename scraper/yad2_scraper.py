@@ -75,8 +75,8 @@ def _extract_raw_listings(next_data: dict) -> list:
 # ─────────────────────────────────────────────────────────────────────────────
 
 ROOMMATE_KEYWORDS = [
-    "שותף", "שותפים", "שותפות", "חדר פרטי", "חדר בשיתוף",
-    "roommate", "room only", "shared room",
+    "שותף", "שותפים", "שותפות", "חדר פרטי", "חדר בשיתוף", "חדר בדירה",
+    "roommate", "room only", "shared room", "room in apartment",
 ]
 PARKING_KEYWORDS = [
     "חניה", "חנייה", "מקום חנייה", "parking spot", "parking space",
@@ -117,6 +117,8 @@ def _detect_listing_type(title: str, price: int, rooms: float, sqm: int,
         return "parking"
     if rooms == 1.0 and 0 < sqm < 25:
         return "parking"
+    if rooms == 1.0 and price < 2500:
+        return "roommate"
     return "apartment"
 
 

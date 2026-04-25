@@ -13,8 +13,8 @@ type FormState = {
 };
 
 const inputStyle = {
-  backgroundColor: "#0A0E1A",
-  borderColor: "#1e2a3a",
+  backgroundColor: "#FFFFFF",
+  borderColor: "#DDE4E8",
   borderRadius: "8px",
   borderWidth: "1px",
 };
@@ -54,7 +54,7 @@ export default function BenefitsView() {
       <div className="mb-8 md:mb-10">
         <h1 className="text-2xl md:text-3xl font-bold text-txt-primary mb-2">
           {t.benefitsTitle}{" "}
-          <span style={{ color: "#00E5A0" }}>{t.benefitsHighlight}</span>
+          <span style={{ color: "#1E7B7B" }}>{t.benefitsHighlight}</span>
         </h1>
         <p className="text-txt-secondary">{t.benefitsSub}</p>
       </div>
@@ -64,9 +64,10 @@ export default function BenefitsView() {
         onSubmit={handleSubmit}
         className="flex flex-col gap-4 p-5 md:p-6 mb-8"
         style={{
-          backgroundColor: "#0D1421",
+          backgroundColor: "#FFFFFF",
           borderRadius: "12px",
-          border: "1px solid #1e2a3a",
+          border: "1px solid #DDE4E8",
+          boxShadow: "0 4px 28px rgba(30,123,123,0.08)",
         }}
       >
         {/* Income + Family size — side by side on md+ */}
@@ -109,7 +110,7 @@ export default function BenefitsView() {
               checked={form.owns_home}
               onChange={(e) => setForm({ ...form, owns_home: e.target.checked })}
               className="w-5 h-5 rounded cursor-pointer"
-              style={{ accentColor: "#00E5A0" }}
+              style={{ accentColor: "#1E7B7B" }}
             />
             <span className="text-sm text-txt-secondary group-hover:text-txt-primary transition-colors">
               {t.ownsHomeLabel}
@@ -121,7 +122,7 @@ export default function BenefitsView() {
               checked={form.is_oleh}
               onChange={(e) => setForm({ ...form, is_oleh: e.target.checked })}
               className="w-5 h-5 rounded cursor-pointer"
-              style={{ accentColor: "#00E5A0" }}
+              style={{ accentColor: "#1E7B7B" }}
             />
             <span className="text-sm text-txt-secondary group-hover:text-txt-primary transition-colors">
               {t.isOlehLabel}
@@ -134,9 +135,10 @@ export default function BenefitsView() {
           disabled={loading}
           className="w-full py-3.5 mt-1 text-base font-semibold transition-all duration-200 hover:opacity-90 active:scale-[0.98] disabled:opacity-50"
           style={{
-            backgroundColor: "#00E5A0",
-            color: "#0A0E1A",
+            backgroundColor: "#1E7B7B",
+            color: "#FFFFFF",
             borderRadius: "8px",
+            boxShadow: "0 4px 16px rgba(30,123,123,0.30)",
           }}
         >
           {loading ? "..." : t.findBenefitsBtn}
@@ -165,8 +167,8 @@ function ResultsSection({ results }: { results: BenefitProgram[] | null }) {
       <div
         className="flex flex-col items-center justify-center py-16 text-center"
         style={{
-          backgroundColor: "#0D1421",
-          border: "1px solid #1e2a3a",
+          backgroundColor: "#FFFFFF",
+          border: "1px solid #DDE4E8",
           borderRadius: "12px",
         }}
       >

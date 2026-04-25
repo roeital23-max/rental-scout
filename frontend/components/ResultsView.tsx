@@ -50,16 +50,16 @@ export default function ResultsView({ listings, searchParams }: Props) {
         <Link
           href="/"
           className="inline-flex items-center gap-1.5 text-sm mb-6 py-2 -my-2 transition-opacity hover:opacity-70"
-          style={{ color: "#8899AA" }}
+          style={{ color: "#637280" }}
         >
           {t.backToSearch}
         </Link>
 
-        <h1 className="text-2xl md:text-3xl font-bold text-txt-primary mb-2">
+        <h1 className="text-2xl md:text-3xl font-bold mb-2" style={{ color: "#1A2730" }}>
           {listings.length > 0 ? (
             <>
               {t.resultsFound}{" "}
-              <span style={{ color: "#00E5A0" }}>
+              <span style={{ color: "#1E7B7B" }}>
                 {listings.length} {t.resultsSuffix}
               </span>{" "}
               {headingLocation}
@@ -102,11 +102,13 @@ export default function ResultsView({ listings, searchParams }: Props) {
 function FilterChip({ label }: { label: string }) {
   return (
     <span
-      className="inline-flex items-center px-3 py-1 text-sm text-txt-secondary"
+      className="inline-flex items-center px-3 py-1 text-sm"
       style={{
-        backgroundColor: "#1e2a3a",
+        backgroundColor: "#E6F4F4",
         borderRadius: "99px",
-        border: "1px solid #2a3a4a",
+        border: "1px solid #1E7B7B30",
+        color: "#1E7B7B",
+        fontWeight: 500,
       }}
     >
       {label}
@@ -120,23 +122,23 @@ function EmptyState() {
     <div
       className="flex flex-col items-center justify-center py-20 text-center"
       style={{
-        backgroundColor: "#0D1421",
-        border: "1px solid #1e2a3a",
-        borderRadius: "12px",
+        backgroundColor: "#FFFFFF",
+        border: "1px solid #DDE4E8",
+        borderRadius: 16,
       }}
     >
       <div className="text-4xl mb-4 opacity-40">🔍</div>
-      <h2 className="text-xl font-semibold text-txt-primary mb-2">
+      <h2 className="text-xl font-semibold mb-2" style={{ color: "#1A2730" }}>
         {t.emptyTitle}
       </h2>
-      <p className="text-txt-secondary mb-6">{t.emptySub}</p>
+      <p className="mb-6" style={{ color: "#637280" }}>{t.emptySub}</p>
       <Link
         href="/"
         className="px-6 py-2.5 text-sm font-semibold transition-opacity hover:opacity-90"
         style={{
-          backgroundColor: "#00E5A0",
-          color: "#0A0E1A",
-          borderRadius: "8px",
+          backgroundColor: "#1E7B7B",
+          color: "#fff",
+          borderRadius: 8,
         }}
       >
         {t.newSearch}

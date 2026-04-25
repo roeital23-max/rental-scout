@@ -40,7 +40,7 @@ async function TrendsContent({
     data = await getTrends(city, neighborhood);
   } catch {
     return (
-      <p className="text-sm text-[#FF5252] mt-4">
+      <p className="text-sm mt-4" style={{ color: "#BC2B2B" }}>
         Could not load trend data — check that the API is running.
       </p>
     );
@@ -60,26 +60,26 @@ async function TrendsContent({
       <div className="flex gap-4 mt-4 mb-6">
         <div
           className="flex-1 px-4 py-3"
-          style={{ background: "#0D1421", borderRadius: "10px", border: "1px solid #1e2a3a" }}
+          style={{ background: "#FFFFFF", borderRadius: "10px", border: "1px solid #DDE4E8", boxShadow: "0 2px 8px rgba(30,123,123,0.06)" }}
         >
-          <div className="text-xs text-[#8899AA] mb-1">Current median</div>
+          <div className="text-xs mb-1" style={{ color: "#637280" }}>Current median</div>
           <div
-            className="text-xl font-bold text-[#e2e8f0]"
-            style={{ fontFamily: "var(--font-space-mono), monospace" }}
+            className="text-xl font-bold"
+            style={{ fontFamily: "var(--font-dm-mono), monospace", color: "#1A2730" }}
           >
             ₪{latest.toLocaleString()}
           </div>
         </div>
         <div
           className="flex-1 px-4 py-3"
-          style={{ background: "#0D1421", borderRadius: "10px", border: "1px solid #1e2a3a" }}
+          style={{ background: "#FFFFFF", borderRadius: "10px", border: "1px solid #DDE4E8", boxShadow: "0 2px 8px rgba(30,123,123,0.06)" }}
         >
-          <div className="text-xs text-[#8899AA] mb-1">12-month change</div>
+          <div className="text-xs mb-1" style={{ color: "#637280" }}>12-month change</div>
           <div
             className="text-xl font-bold"
             style={{
-              fontFamily: "var(--font-space-mono), monospace",
-              color: up ? "#00E5A0" : "#FF5252",
+              fontFamily: "var(--font-dm-mono), monospace",
+              color: up ? "#2E7D52" : "#BC2B2B",
             }}
           >
             {up ? "+" : ""}{changePct}%
@@ -90,13 +90,13 @@ async function TrendsContent({
       {/* Chart */}
       <div
         className="p-4"
-        style={{ background: "#0D1421", borderRadius: "12px", border: "1px solid #1e2a3a" }}
+        style={{ background: "#FFFFFF", borderRadius: "12px", border: "1px solid #DDE4E8", boxShadow: "0 2px 12px rgba(30,123,123,0.06)" }}
       >
-        <div className="text-xs text-[#8899AA] mb-3">Median rent · ₪/month</div>
+        <div className="text-xs mb-3" style={{ color: "#637280" }}>Median rent · ₪/month</div>
         <TrendChart data={data} neighborhood={nbLabel} />
       </div>
 
-      <p className="text-xs text-[#8899AA] mt-3 text-center">
+      <p className="text-xs mt-3 text-center" style={{ color: "#637280" }}>
         Synthetic trend based on current listing data · updates when new listings are scraped
       </p>
     </>
@@ -120,25 +120,26 @@ export default async function TrendsPage({
       {/* Back link */}
       <Link
         href="/results"
-        className="inline-flex items-center text-sm text-[#8899AA] hover:text-[#e2e8f0] transition-colors mb-6 py-2 -my-2"
+        className="inline-flex items-center text-sm transition-opacity hover:opacity-70 mb-6 py-2 -my-2"
+        style={{ color: "#637280" }}
       >
         ← Back to results
       </Link>
 
       {/* Header */}
       <div className="mb-2">
-        <h1 className="text-2xl font-bold text-[#e2e8f0]">{nbLabel}</h1>
-        <p className="text-sm text-[#8899AA]">{cityLabel} · 12-month price trend</p>
+        <h1 className="text-2xl font-bold" style={{ color: "#1A2730" }}>{nbLabel}</h1>
+        <p className="text-sm" style={{ color: "#637280" }}>{cityLabel} · 12-month price trend</p>
       </div>
 
       {!city || !neighborhood ? (
-        <p className="text-sm text-[#8899AA] mt-6">
+        <p className="text-sm mt-6" style={{ color: "#637280" }}>
           No neighborhood selected. Go back to search results and click a neighborhood.
         </p>
       ) : (
         <Suspense
           fallback={
-            <div className="mt-6 text-sm text-[#8899AA] animate-pulse">
+            <div className="mt-6 text-sm animate-pulse" style={{ color: "#637280" }}>
               Loading trend data…
             </div>
           }

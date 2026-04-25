@@ -4,28 +4,27 @@
 
 @layer base {
   html {
-    background-color: #0A0E1A;
-    color: #E8EDF5;
+    background-color: #F5F7F7;
+    color: #1A2730;
   }
 
   body {
-    background-color: #0A0E1A;
-    color: #E8EDF5;
+    background-color: #F5F7F7;
+    color: #1A2730;
     font-family: var(--font-dm-sans), sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Inputs + selects — dark surface style */
   input,
   select {
-    background-color: #0A0E1A;
-    color: #E8EDF5;
-    border-color: #1e2a3a;
+    background-color: #FFFFFF;
+    color: #1A2730;
+    border-color: #DDE4E8;
   }
 
   input::placeholder {
-    color: #8899AA;
+    color: #637280;
   }
 
   /* Remove number input spinners */
@@ -35,15 +34,14 @@
     margin: 0;
   }
 
-  /* Select arrow color fix for dark background */
   select option {
-    background-color: #0D1421;
-    color: #E8EDF5;
+    background-color: #FFFFFF;
+    color: #1A2730;
   }
 }
 
 @layer utilities {
   .font-mono {
-    font-family: var(--font-space-mono), monospace;
+    font-family: var(--font-dm-mono), monospace;
   }
 }

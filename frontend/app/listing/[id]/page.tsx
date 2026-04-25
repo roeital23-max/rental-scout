@@ -71,12 +71,12 @@ export default async function ListingPage({
       <div className="flex items-start justify-between gap-4 mb-2 flex-wrap">
         <div>
           <h1
-            className="text-xl font-semibold text-[#E8EDF5]"
-            style={{ direction: "rtl" }}
+            className="text-xl font-semibold"
+            style={{ color: "#1A2730", direction: "rtl" }}
           >
             {listing.neighborhood}
           </h1>
-          <p className="text-sm text-[#8899AA] mt-0.5">{cityLabel}</p>
+          <p className="text-sm mt-0.5" style={{ color: "#637280" }}>{cityLabel}</p>
         </div>
         <DealBadge label={listing.deal_label} score={listing.deal_score} />
       </div>
@@ -85,12 +85,12 @@ export default async function ListingPage({
       <p
         className="text-4xl font-bold mt-4 mb-6"
         style={{
-          fontFamily: "var(--font-space-mono), monospace",
-          color: "#E8EDF5",
+          fontFamily: "var(--font-dm-mono), monospace",
+          color: "#1A2730",
         }}
       >
         ₪{listing.price_nis.toLocaleString()}
-        <span className="text-lg font-normal text-[#8899AA] ms-1">
+        <span className="text-lg font-normal ms-1" style={{ color: "#637280" }}>
           {he.perMonth}
         </span>
       </p>
@@ -106,8 +106,8 @@ export default async function ListingPage({
         ).map((stat) => (
           <div
             key={stat}
-            className="px-4 py-2 rounded-xl text-sm font-medium text-[#E8EDF5]"
-            style={{ background: "#0D1421", border: "1px solid #1E2A3A" }}
+            className="px-4 py-2 rounded-xl text-sm font-medium"
+            style={{ background: "#E6F4F4", border: "1px solid #DDE4E8", color: "#1A2730" }}
           >
             {stat}
           </div>
@@ -123,8 +123,8 @@ export default async function ListingPage({
             return (
               <span
                 key={f}
-                className="px-3 py-1 rounded-full text-xs text-[#8899AA]"
-                style={{ background: "#0D1421", border: "1px solid #1E2A3A" }}
+                className="px-3 py-1 rounded-full text-xs font-medium"
+                style={{ background: "#E6F4F4", border: "1px solid #DDE4E8", color: "#1E7B7B" }}
               >
                 {label as string}
               </span>
@@ -136,8 +136,8 @@ export default async function ListingPage({
       {/* Special-type notice (roommate / parking) */}
       {isSpecialType && (
         <div
-          className="rounded-xl p-4 mb-6 text-sm text-[#8899AA]"
-          style={{ background: "#0D1421", border: "1px solid #1E2A3A" }}
+          className="rounded-xl p-4 mb-6 text-sm"
+          style={{ background: "#F0F3F5", border: "1px solid #DDE4E8", color: "#637280" }}
         >
           {listing.listing_type === "roommate" ? he.roommateNotice : he.parkingNotice}
         </div>
@@ -147,23 +147,27 @@ export default async function ListingPage({
       {!isSpecialType && (
         <div
           className="rounded-xl p-5 mb-6"
-          style={{ background: "#0D1421", border: "1px solid #1E2A3A" }}
+          style={{ background: "#FFFFFF", border: "1px solid #DDE4E8", boxShadow: "0 2px 12px rgba(30,123,123,0.06)" }}
         >
-          <h2 className="text-sm font-semibold text-[#8899AA] uppercase tracking-wider mb-3">
+          <h2
+            className="text-xs font-semibold uppercase tracking-widest mb-3"
+            style={{ color: "#637280", fontFamily: "var(--font-dm-mono), monospace" }}
+          >
             {he.priceAnalysis}
           </h2>
 
           {/* Deviation */}
-          <p className="text-[#E8EDF5] text-base mb-2">
+          <p className="text-base mb-2" style={{ color: "#1A2730" }}>
             <span
               style={{
-                fontFamily: "var(--font-space-mono), monospace",
+                fontFamily: "var(--font-dm-mono), monospace",
+                fontWeight: 700,
                 color:
                   listing.deal_score < -10
-                    ? "#00E5A0"
+                    ? "#2E7D52"
                     : listing.deal_score > 10
-                    ? "#FF5252"
-                    : "#FFA040",
+                    ? "#BC2B2B"
+                    : "#B5620E",
               }}
             >
               {listing.deal_score === 0
@@ -179,25 +183,26 @@ export default async function ListingPage({
               : he.medianLabel}
           </p>
 
-          {/* Price-per-sqm row */}
+          {/* Price-per-sqm rows */}
           {ppsqm && medianPpsqm && (
-            <p className="text-sm text-[#8899AA]">
-              <span
-                style={{ fontFamily: "var(--font-space-mono), monospace" }}
-                className="text-[#E8EDF5]"
-              >
-                ₪{ppsqm.toLocaleString()}
-              </span>
-              {he.pricePerSqm} · {he.medianLabel}{" "}
-              <span style={{ fontFamily: "var(--font-space-mono), monospace" }}>
-                ₪{medianPpsqm.toLocaleString()}
-              </span>
-              {he.pricePerSqm}
-            </p>
+            <div className="flex flex-col gap-1 mt-1">
+              <div className="flex justify-between text-sm">
+                <span style={{ color: "#637280" }}>מחיר למ"ר</span>
+                <span style={{ fontFamily: "var(--font-dm-mono), monospace", color: "#1A2730", fontWeight: 600 }}>
+                  ₪{ppsqm.toLocaleString()}/מ"ר
+                </span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span style={{ color: "#637280" }}>חציון בשכונה</span>
+                <span style={{ fontFamily: "var(--font-dm-mono), monospace", color: "#637280" }}>
+                  ₪{medianPpsqm.toLocaleString()}/מ"ר
+                </span>
+              </div>
+            </div>
           )}
 
           {/* Listed date */}
-          <p className="text-xs text-[#8899AA] mt-3">
+          <p className="text-xs mt-3" style={{ color: "#637280" }}>
             {he.listedOn}: {listing.listed_at}
           </p>
         </div>
@@ -210,9 +215,9 @@ export default async function ListingPage({
         rel="noopener noreferrer"
         className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold mb-8 transition-opacity hover:opacity-80"
         style={{
-          background: "rgba(0, 229, 160, 0.12)",
-          border: "1px solid rgba(0, 229, 160, 0.3)",
-          color: "#00E5A0",
+          background: "#E6F4F4",
+          border: "1px solid #1E7B7B30",
+          color: "#1E7B7B",
         }}
       >
         {he.viewOnYad2} ↗
@@ -222,8 +227,8 @@ export default async function ListingPage({
       {trends.length > 0 && (
         <section>
           <h2
-            className="text-base font-semibold text-[#E8EDF5] mb-4"
-            style={{ borderTop: "1px solid #1E2A3A", paddingTop: "1.5rem" }}
+            className="text-base font-semibold mb-4"
+            style={{ color: "#1A2730", borderTop: "1px solid #DDE4E8", paddingTop: "1.5rem" }}
           >
             {he.neighborhoodTrends}
           </h2>

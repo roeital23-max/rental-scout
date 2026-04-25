@@ -57,10 +57,11 @@ export default function HomePage() {
   }
 
   const inputStyle = {
-    backgroundColor: "#0A0E1A",
-    borderColor: "#1e2a3a",
-    borderRadius: "8px",
-    borderWidth: "1px",
+    backgroundColor: "#FFFFFF",
+    borderColor: "#DDE4E8",
+    borderRadius: 8,
+    borderWidth: 1,
+    color: "#1A2730",
   };
 
   return (
@@ -68,23 +69,24 @@ export default function HomePage() {
       {/* Hero */}
       <div className="text-center mb-8 md:mb-12 max-w-2xl">
         <div
-          className="inline-block text-xs font-medium px-3 py-1 rounded-badge mb-6 uppercase tracking-widest"
+          className="inline-block text-xs font-semibold px-3 py-1 rounded-badge mb-6 uppercase tracking-widest"
           style={{
-            color: "#00E5A0",
-            backgroundColor: "rgba(0, 229, 160, 0.1)",
-            border: "1px solid rgba(0, 229, 160, 0.2)",
+            color: "#1E7B7B",
+            backgroundColor: "#E6F4F4",
+            border: "1px solid #1E7B7B30",
+            fontFamily: "var(--font-dm-mono), monospace",
           }}
         >
           {t.badge}
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-bold text-txt-primary leading-tight mb-4">
+        <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4" style={{ color: "#1A2730" }}>
           {t.heroTitle}
           <br />
-          <span style={{ color: "#00E5A0" }}>{t.heroHighlight}</span>
+          <span style={{ color: "#1E7B7B" }}>{t.heroHighlight}</span>
         </h1>
 
-        <p className="text-lg text-txt-secondary leading-relaxed">
+        <p className="text-lg leading-relaxed" style={{ color: "#637280" }}>
           {t.heroSub}
           <br />
           {t.heroData}
@@ -96,20 +98,21 @@ export default function HomePage() {
         onSubmit={handleSearch}
         className="w-full max-w-xl flex flex-col gap-4 p-6 md:p-8"
         style={{
-          backgroundColor: "#0D1421",
-          borderRadius: "12px",
-          border: "1px solid #1e2a3a",
+          backgroundColor: "#FFFFFF",
+          borderRadius: 20,
+          border: "1px solid #DDE4E8",
+          boxShadow: "0 4px 28px rgba(30,123,123,0.08)",
         }}
       >
         {/* City */}
         <div className="flex flex-col gap-2">
-          <label className="text-sm font-medium text-txt-secondary">
+          <label className="text-sm font-medium" style={{ color: "#637280" }}>
             {t.cityLabel}
           </label>
           <select
             value={city}
             onChange={(e) => setCity(e.target.value)}
-            className="w-full px-4 py-3 text-txt-primary border transition-colors focus:outline-none"
+            className="w-full px-4 py-3 border transition-colors focus:outline-none focus:border-[#1E7B7B]"
             style={inputStyle}
           >
             <option value="">{t.cityPlaceholder}</option>
@@ -123,13 +126,13 @@ export default function HomePage() {
 
         {/* Rooms */}
         <div className="flex flex-col gap-2">
-          <label className="text-sm font-medium text-txt-secondary">
+          <label className="text-sm font-medium" style={{ color: "#637280" }}>
             {t.roomsLabel}
           </label>
           <select
             value={rooms}
             onChange={(e) => setRooms(e.target.value)}
-            className="w-full px-4 py-3 text-txt-primary border transition-colors focus:outline-none"
+            className="w-full px-4 py-3 border transition-colors focus:outline-none focus:border-[#1E7B7B]"
             style={inputStyle}
           >
             <option value="">{t.roomsPlaceholder}</option>
@@ -143,7 +146,7 @@ export default function HomePage() {
 
         {/* Max price */}
         <div className="flex flex-col gap-2">
-          <label className="text-sm font-medium text-txt-secondary">
+          <label className="text-sm font-medium" style={{ color: "#637280" }}>
             {t.priceLabel}
           </label>
           <input
@@ -152,7 +155,7 @@ export default function HomePage() {
             onChange={(e) => setMaxPrice(e.target.value)}
             placeholder={t.pricePlaceholder}
             min={0}
-            className="w-full px-4 py-3 text-txt-primary border transition-colors focus:outline-none"
+            className="w-full px-4 py-3 border transition-colors focus:outline-none focus:border-[#1E7B7B]"
             style={inputStyle}
           />
         </div>
@@ -162,9 +165,10 @@ export default function HomePage() {
           type="submit"
           className="w-full py-3.5 mt-2 text-base font-semibold transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
           style={{
-            backgroundColor: "#00E5A0",
-            color: "#0A0E1A",
-            borderRadius: "8px",
+            backgroundColor: "#1E7B7B",
+            color: "#fff",
+            borderRadius: 12,
+            boxShadow: "0 4px 16px rgba(30,123,123,0.30)",
           }}
         >
           {t.searchBtn}
@@ -172,11 +176,11 @@ export default function HomePage() {
       </form>
 
       {/* Trust badges */}
-      <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mt-8 md:mt-10 text-xs text-txt-secondary">
+      <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mt-8 md:mt-10 text-xs" style={{ color: "#637280" }}>
         <span>{t.trustListings}</span>
-        <span className="opacity-30">·</span>
+        <span style={{ opacity: 0.3 }}>·</span>
         <span>{t.trustUpdate}</span>
-        <span className="opacity-30">·</span>
+        <span style={{ opacity: 0.3 }}>·</span>
         <span>{t.trustData}</span>
       </div>
 
@@ -184,30 +188,30 @@ export default function HomePage() {
       <div className="w-full max-w-xl grid grid-cols-1 md:grid-cols-2 gap-3 mt-8">
         <Link
           href="/benefits"
-          className="flex flex-col gap-2 p-4 transition-all duration-200 hover:border-[#2a3a4a] hover:translate-y-[-2px]"
+          className="flex flex-col gap-2 p-4 transition-all duration-200 hover:shadow-md hover:translate-y-[-2px]"
           style={{
-            backgroundColor: "#0D1421",
-            borderRadius: "12px",
-            border: "1px solid #1e2a3a",
+            backgroundColor: "#FFFFFF",
+            borderRadius: 12,
+            border: "1px solid #DDE4E8",
           }}
         >
           <span className="text-xl">🏛️</span>
-          <span className="font-medium text-txt-primary text-sm">{t.featBenefitsTitle}</span>
-          <span className="text-xs text-txt-secondary leading-relaxed">{t.featBenefitsSub}</span>
+          <span className="font-medium text-sm" style={{ color: "#1A2730" }}>{t.featBenefitsTitle}</span>
+          <span className="text-xs leading-relaxed" style={{ color: "#637280" }}>{t.featBenefitsSub}</span>
         </Link>
 
         <Link
           href="/pricing"
-          className="flex flex-col gap-2 p-4 transition-all duration-200 hover:border-[#2a3a4a] hover:translate-y-[-2px]"
+          className="flex flex-col gap-2 p-4 transition-all duration-200 hover:shadow-md hover:translate-y-[-2px]"
           style={{
-            backgroundColor: "#0D1421",
-            borderRadius: "12px",
-            border: "1px solid #1e2a3a",
+            backgroundColor: "#FFFFFF",
+            borderRadius: 12,
+            border: "1px solid #DDE4E8",
           }}
         >
           <span className="text-xl">💳</span>
-          <span className="font-medium text-txt-primary text-sm">{t.featPricingTitle}</span>
-          <span className="text-xs text-txt-secondary leading-relaxed">{t.featPricingSub}</span>
+          <span className="font-medium text-sm" style={{ color: "#1A2730" }}>{t.featPricingTitle}</span>
+          <span className="text-xs leading-relaxed" style={{ color: "#637280" }}>{t.featPricingSub}</span>
         </Link>
       </div>
     </main>

@@ -17,9 +17,10 @@ export default function BenefitsCard({ program }: Props) {
     <div
       className="flex flex-col gap-4 p-5"
       style={{
-        backgroundColor: "#0D1421",
+        backgroundColor: "#FFFFFF",
         borderRadius: "12px",
-        border: "1px solid #1e2a3a",
+        border: "1px solid #DDE4E8",
+        boxShadow: "0 2px 8px rgba(30,123,123,0.05)",
       }}
     >
       {/* Name + amount chips */}
@@ -30,10 +31,10 @@ export default function BenefitsCard({ program }: Props) {
             <span
               className="inline-flex items-center px-2.5 py-1 text-xs font-medium whitespace-nowrap"
               style={{
-                color: "#00E5A0",
-                backgroundColor: "rgba(0, 229, 160, 0.12)",
+                color: "#2E7D52",
+                backgroundColor: "#E9F5EE",
                 borderRadius: "99px",
-                border: "1px solid rgba(0, 229, 160, 0.25)",
+                border: "1px solid #2E7D5230",
               }}
             >
               ₪{program.monthly_amount_nis.toLocaleString()} {t.monthlyBenefit}
@@ -43,10 +44,10 @@ export default function BenefitsCard({ program }: Props) {
             <span
               className="inline-flex items-center px-2.5 py-1 text-xs font-medium whitespace-nowrap"
               style={{
-                color: "#FFA040",
-                backgroundColor: "rgba(255, 160, 64, 0.12)",
+                color: "#B5620E",
+                backgroundColor: "#FEF0E3",
                 borderRadius: "99px",
-                border: "1px solid rgba(255, 160, 64, 0.25)",
+                border: "1px solid #B5620E30",
               }}
             >
               {t.oneTimeBenefit} ₪{program.one_time_amount_nis.toLocaleString()}
@@ -64,7 +65,7 @@ export default function BenefitsCard({ program }: Props) {
         target="_blank"
         rel="noopener noreferrer"
         className="self-start text-sm font-medium transition-opacity hover:opacity-80 py-2 -my-2"
-        style={{ color: "#00E5A0" }}
+        style={{ color: "#1E7B7B" }}
       >
         {t.applyNow}
       </a>
