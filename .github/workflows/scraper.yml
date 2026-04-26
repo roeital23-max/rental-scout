@@ -36,4 +36,4 @@ jobs:
         run: python3 -m playwright install chromium
 
       - name: Scrape ${{ matrix.city }}
-        run: python3 scraper/run.py --playwright --city ${{ matrix.city }}
+        run: caffeinate -dims python3 scraper/run.py --playwright --city ${{ matrix.city }}
