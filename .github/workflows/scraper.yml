@@ -2,7 +2,7 @@ name: Nightly scraper
 
 on:
   schedule:
-    - cron: "0 2 */2 * *"   # every 2 days at 02:00 UTC (04:00 Israel time)
+    - cron: "5 23 */2 * *"   # every 2 days at 23:05 UTC (01:05 Israel winter / 02:05 Israel summer)
   workflow_dispatch:          # allow manual trigger from GitHub UI
 
 jobs:
