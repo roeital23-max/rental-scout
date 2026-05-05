@@ -17,7 +17,7 @@ class Listing(BaseModel):
     neighborhood: str
     rooms: float
     sqm: int
-    sqm_built: int = 0
+    sqm_built: Optional[int] = 0
     floor: int
     price_nis: int
     deal_score: float

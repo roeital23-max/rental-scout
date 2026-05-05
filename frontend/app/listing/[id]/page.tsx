@@ -49,11 +49,12 @@ export default async function ListingPage({
 
   // Price-per-sqm analysis
   // Use sqm_built if it exists and differs from sqm by more than 10%
+  const sqmBuilt = listing.sqm_built ?? 0;
   const sqmBuiltDiffers =
-    listing.sqm_built > 5 &&
+    sqmBuilt > 5 &&
     listing.sqm > 5 &&
-    Math.abs(listing.sqm_built - listing.sqm) / listing.sqm > 0.10;
-  const effectiveSqm = sqmBuiltDiffers ? listing.sqm_built : listing.sqm;
+    Math.abs(sqmBuilt - listing.sqm) / listing.sqm > 0.10;
+  const effectiveSqm = sqmBuiltDiffers ? sqmBuilt : listing.sqm;
   const hasSqm = effectiveSqm > 5;
   const ppsqm = hasSqm ? Math.round(listing.price_nis / effectiveSqm) : null;
   const medianPpsqm =
@@ -107,7 +108,7 @@ export default async function ListingPage({
           [
             `${String(listing.rooms).replace(".0", "")} ${he.rooms}`,
             sqmBuiltDiffers
-              ? `${listing.sqm_built} מ״ר בנוי (${listing.sqm} כולל)`
+              ? `${sqmBuilt} מ״ר בנוי (${listing.sqm} כולל)`
               : `${listing.sqm} ${he.sqm}`,
             floorLabel,
           ] as string[]
