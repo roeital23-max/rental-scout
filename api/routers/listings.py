@@ -86,7 +86,7 @@ def get_listing(listing_id: str):
         listings = _load_from_json()
         listing = next((l for l in listings if l["id"] == listing_id), None)
 
-    if not listing:
+    if not listing or listing.get("flagged"):
         raise HTTPException(status_code=404, detail="Listing not found")
 
     return listing
