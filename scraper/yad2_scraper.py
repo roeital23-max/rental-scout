@@ -164,13 +164,15 @@ def parse_listing(item: dict, city_key: str) -> Optional[dict]:
             return None
         price = int(price)
 
-        addr    = item.get("address", {})
-        details = item.get("additionalDetails", {})
+        addr     = item.get("address", {})
+        details  = item.get("additionalDetails", {})
+        metadata = item.get("metaData", {})
 
         neighborhood = addr.get("neighborhood", {}).get("text") or "unknown"
         floor        = addr.get("house", {}).get("floor", 0)
         rooms_raw    = details.get("roomsCount")
         sqm          = int(details.get("squareMeter") or 0)
+        sqm_built    = int(metadata.get("squareMeterBuild") or 0)
 
         if rooms_raw is None:
             return None
@@ -190,6 +192,7 @@ def parse_listing(item: dict, city_key: str) -> Optional[dict]:
             "neighborhood": neighborhood,
             "rooms":        rooms,
             "sqm":          sqm,
+            "sqm_built":    sqm_built,
             "floor":        int(floor),
             "price_nis":    price,
             "listing_type": listing_type,
@@ -412,6 +415,14 @@ def debug_fields(city_key: str = "tel_aviv", n: int = 3) -> None:
 # Compute medians + deal scores
 # ─────────────────────────────────────────────────────────────────────────────
 
+def _effective_sqm(sqm: int, sqm_built: int) -> int:
+    """Use sqm_built when it exists and differs from sqm by more than 10%."""
+    if sqm_built and sqm_built > 5 and sqm and sqm > 5:
+        if abs(sqm_built - sqm) / sqm > 0.10:
+            return sqm_built
+    return sqm
+
+
 def compute_medians(listings: list) -> tuple:
     """
     Returns:
@@ -428,13 +439,15 @@ def compute_medians(listings: list) -> tuple:
         city  = l["city"]
         hood  = l["neighborhood"]
         rooms = str(l["rooms"]).replace(".0", "")
-        price = l["price_nis"]
-        sqm   = l.get("sqm", 0)
+        price     = l["price_nis"]
+        sqm       = l.get("sqm", 0)
+        sqm_built = l.get("sqm_built", 0)
+        eff_sqm   = _effective_sqm(sqm, sqm_built)
 
         price_groups.setdefault(city, {}).setdefault(hood, {}).setdefault(rooms, []).append(price)
 
-        if sqm and sqm > 5:
-            ppsqm_groups.setdefault(city, {}).setdefault(hood, {}).setdefault(rooms, []).append(price / sqm)
+        if eff_sqm and eff_sqm > 5:
+            ppsqm_groups.setdefault(city, {}).setdefault(hood, {}).setdefault(rooms, []).append(price / eff_sqm)
 
     medians: dict = {}
     for city, hoods in price_groups.items():
@@ -472,16 +485,18 @@ def score_listings(listings: list, medians: dict, ppsqm_medians: dict) -> list:
         city     = l["city"]
         hood     = l["neighborhood"]
         rooms    = str(l["rooms"]).replace(".0", "")
-        price    = l["price_nis"]
-        sqm      = l.get("sqm", 0)
-        floor    = l.get("floor", 2)
-        features = l.get("features") or []
+        price     = l["price_nis"]
+        sqm       = l.get("sqm", 0)
+        sqm_built = l.get("sqm_built", 0)
+        eff_sqm   = _effective_sqm(sqm, sqm_built)
+        floor     = l.get("floor", 2)
+        features  = l.get("features") or []
 
         median_ppsqm = ppsqm_medians.get(city, {}).get(hood, {}).get(rooms)
 
-        if sqm and sqm > 5 and median_ppsqm:
+        if eff_sqm and eff_sqm > 5 and median_ppsqm:
             # Primary path: price-per-sqm with floor + feature adjustments
-            listing_ppsqm = price / sqm
+            listing_ppsqm = price / eff_sqm
             fp = _floor_premium(floor)
             feat_adj = sum(
                 FEATURE_PREMIUMS[k]

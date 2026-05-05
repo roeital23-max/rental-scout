@@ -20,6 +20,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from scraper.yad2_scraper import run as run_yad2, debug_fields as debug_yad2_fields
 from scraper.madlan_scraper import run as run_madlan
+from scraper.sanity_check import run_sanity_check
 
 DATA_DIR      = Path(__file__).parent.parent / "data"
 LISTINGS_FILE = DATA_DIR / "yad2_listings_raw.json"
@@ -35,9 +36,9 @@ UPSERT_BATCH = 500  # Supabase row limit per request
 def _upsert_listings(sb, listings: list) -> None:
     """Batch-upsert listings into Supabase. Skips fields not in DB schema."""
     DB_FIELDS = {
-        "id", "url", "city", "neighborhood", "rooms", "sqm",
+        "id", "url", "city", "neighborhood", "rooms", "sqm", "sqm_built",
         "floor", "price_nis", "deal_score", "deal_label", "listing_type",
-        "features", "listed_at", "scraped_at",
+        "features", "listed_at", "scraped_at", "flagged", "flag_reasons",
     }
     rows = [{k: v for k, v in l.items() if k in DB_FIELDS} for l in listings]
 
@@ -133,6 +134,10 @@ def cmd_yad2(city_keys, use_playwright: bool):
             print("  Try again with --playwright to bypass hCaptcha.")
         return False
 
+    # Run sanity check — attaches flagged + flag_reasons to each listing
+    city_key = city_keys[0] if city_keys and len(city_keys) == 1 else "all"
+    listings = run_sanity_check(listings, city_key)
+
     medians["updated_at"] = datetime.now(timezone.utc).isoformat()
 
     DATA_DIR.mkdir(exist_ok=True)
@@ -169,6 +174,70 @@ def cmd_yad2(city_keys, use_playwright: bool):
     return True
 
 
+def cmd_sanity_backfill():
+    from api.db import get_supabase, has_supabase
+    from scraper.sanity_check import _check_listing
+    from collections import defaultdict
+
+    if not has_supabase():
+        print("No Supabase credentials — cannot run sanity check.")
+        return
+
+    sb = get_supabase()
+    print("Fetching all listings from Supabase...")
+
+    all_listings = []
+    page_size = 1000
+    offset = 0
+    while True:
+        result = sb.table("listings").select("*").range(offset, offset + page_size - 1).execute()
+        batch = result.data
+        all_listings.extend(batch)
+        if len(batch) < page_size:
+            break
+        offset += page_size
+
+    print(f"Fetched {len(all_listings)} listings across all cities.")
+
+    to_update = []
+    for listing in all_listings:
+        checks = _check_listing(listing)
+        should_flag = bool(checks)
+        flag_reasons = [reason for _, reason in checks]
+        if listing.get("flagged") != should_flag:
+            to_update.append({
+                "id": listing["id"],
+                "flagged": should_flag,
+                "flag_reasons": flag_reasons,
+            })
+
+    print(f"Listings needing update: {len(to_update)}")
+
+    for i, row in enumerate(to_update, 1):
+        sb.table("listings").update({
+            "flagged": row["flagged"],
+            "flag_reasons": row["flag_reasons"],
+        }).eq("id", row["id"]).execute()
+        if i % 50 == 0 or i == len(to_update):
+            print(f"  Updated {i}/{len(to_update)}")
+
+    id_to_city = {l["id"]: l.get("city", "unknown") for l in all_listings}
+    by_city: dict = defaultdict(lambda: {"total": 0, "flagged": 0, "cleared": 0})
+    for listing in all_listings:
+        by_city[listing.get("city", "unknown")]["total"] += 1
+    for row in to_update:
+        city = id_to_city.get(row["id"], "unknown")
+        key = "flagged" if row["flagged"] else "cleared"
+        by_city[city][key] += 1
+
+    print("\n" + "=" * 60)
+    print("SANITY CHECK COMPLETE")
+    print("=" * 60)
+    for city, stats in sorted(by_city.items()):
+        print(f"  {city:<20}  total={stats['total']}  newly flagged={stats['flagged']}  cleared={stats['cleared']}")
+    print("=" * 60)
+
+
 def cmd_madlan(use_playwright: bool):
     print("=" * 60)
     print("Rental Scout — Madlan Scraper")
@@ -194,8 +263,13 @@ def main():
     parser.add_argument("--playwright",   action="store_true", help="Use headed Chromium (bypasses Imperva)")
     parser.add_argument("--madlan",       action="store_true", help="Run Madlan neighborhood comps scraper")
     parser.add_argument("--all",          action="store_true", help="Run Yad2 + Madlan")
-    parser.add_argument("--debug-fields", action="store_true", help="Dump raw Yad2 item JSON for 3 listings (1 page, tel_aviv) to inspect available fields")
+    parser.add_argument("--debug-fields",  action="store_true", help="Dump raw Yad2 item JSON for 3 listings (1 page, tel_aviv) to inspect available fields")
+    parser.add_argument("--sanity-check",  action="store_true", help="Run sanity check against all Supabase listings and update flagged status")
     args = parser.parse_args()
+
+    if args.sanity_check:
+        cmd_sanity_backfill()
+        return
 
     if args.debug_fields:
         debug_yad2_fields(city_key="tel_aviv", n=3)

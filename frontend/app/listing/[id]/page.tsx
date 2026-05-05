@@ -48,8 +48,14 @@ export default async function ListingPage({
   const isSpecialType = listing.listing_type === "roommate" || listing.listing_type === "parking";
 
   // Price-per-sqm analysis
-  const hasSqm = listing.sqm > 5;
-  const ppsqm = hasSqm ? Math.round(listing.price_nis / listing.sqm) : null;
+  // Use sqm_built if it exists and differs from sqm by more than 10%
+  const sqmBuiltDiffers =
+    listing.sqm_built > 5 &&
+    listing.sqm > 5 &&
+    Math.abs(listing.sqm_built - listing.sqm) / listing.sqm > 0.10;
+  const effectiveSqm = sqmBuiltDiffers ? listing.sqm_built : listing.sqm;
+  const hasSqm = effectiveSqm > 5;
+  const ppsqm = hasSqm ? Math.round(listing.price_nis / effectiveSqm) : null;
   const medianPpsqm =
     hasSqm && listing.deal_score !== 0
       ? Math.round(ppsqm! / (1 + listing.deal_score / 100))
@@ -100,7 +106,9 @@ export default async function ListingPage({
         {(
           [
             `${String(listing.rooms).replace(".0", "")} ${he.rooms}`,
-            `${listing.sqm} ${he.sqm}`,
+            sqmBuiltDiffers
+              ? `${listing.sqm_built} מ״ר בנוי (${listing.sqm} כולל)`
+              : `${listing.sqm} ${he.sqm}`,
             floorLabel,
           ] as string[]
         ).map((stat) => (

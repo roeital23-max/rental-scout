@@ -17,6 +17,7 @@ class Listing(BaseModel):
     neighborhood: str
     rooms: float
     sqm: int
+    sqm_built: int = 0
     floor: int
     price_nis: int
     deal_score: float
@@ -25,6 +26,8 @@ class Listing(BaseModel):
     listed_at: str
     scraped_at: str = ""
     features: List[str] = Field(default_factory=list)
+    flagged: bool = False
+    flag_reasons: List[str] = Field(default_factory=list)
 
 
 def _load_from_json() -> list[dict]:
@@ -45,7 +48,7 @@ def get_listings(
 
     if has_supabase():
         sb = get_supabase()
-        query = sb.table("listings").select("*")
+        query = sb.table("listings").select("*").eq("flagged", False)
         if city:
             query = query.eq("city", city)
         if rooms is not None:
@@ -58,6 +61,7 @@ def get_listings(
 
     # JSON fallback
     listings = _load_from_json()
+    listings = [l for l in listings if not l.get("flagged", False)]
     if city:
         listings = [l for l in listings if l.get("city") == city]
     if rooms is not None:

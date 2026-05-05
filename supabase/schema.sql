@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS listings (
   neighborhood  TEXT,                   -- e.g. "florentin", "nachlaot"
   rooms         REAL,                   -- e.g. 3.0, 3.5
   sqm           INTEGER,
+  sqm_built     INTEGER,                -- מ״ר בנוי from metaData.squareMeterBuild
   floor         INTEGER,
   price_nis     INTEGER NOT NULL,       -- monthly rent in NIS
   deal_score    REAL,                   -- % vs median (negative = below = good deal)
@@ -18,7 +19,9 @@ CREATE TABLE IF NOT EXISTS listings (
   listing_type  TEXT DEFAULT 'apartment', -- "apartment" | "roommate" | "parking"
   features      JSONB DEFAULT '[]',     -- ["balcony", "parking", "mamad", ...]
   listed_at     TEXT,                   -- ISO date string
-  scraped_at    TEXT                    -- ISO date string
+  scraped_at    TEXT,                   -- ISO date string
+  flagged       BOOLEAN DEFAULT FALSE,  -- true if sanity check flagged this listing
+  flag_reasons  JSONB DEFAULT '[]'      -- list of check strings that fired
 );
 
 CREATE INDEX IF NOT EXISTS idx_listings_city       ON listings (city);
