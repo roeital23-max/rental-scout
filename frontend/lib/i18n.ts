@@ -24,6 +24,8 @@ export const strings = {
     // Home — search form
     cityLabel: "עיר",
     cityPlaceholder: "כל הערים",
+    neighborhoodLabel: "שכונה",
+    neighborhoodPlaceholder: "כל השכונות",
     roomsLabel: "מספר חדרים",
     roomsPlaceholder: "כל הגדלים",
     priceLabel: "מחיר מקסימלי (₪/חודש)",
@@ -42,6 +44,7 @@ export const strings = {
     resultsInAll: "בכל הערים",
     resultsIn: "ב",
     filterCity: "עיר",
+    filterNeighborhood: "שכונה",
     filterRooms: "חדרים",
     filterMaxPrice: "עד ₪{price}/חודש",
     emptyTitle: "לא נמצאו תוצאות",
@@ -145,6 +148,8 @@ export const strings = {
     // Home — search form
     cityLabel: "City",
     cityPlaceholder: "All cities",
+    neighborhoodLabel: "Neighborhood",
+    neighborhoodPlaceholder: "All neighborhoods",
     roomsLabel: "Rooms",
     roomsPlaceholder: "Any size",
     priceLabel: "Max price (₪/month)",
@@ -163,6 +168,7 @@ export const strings = {
     resultsInAll: "across all cities",
     resultsIn: "in ",
     filterCity: "City",
+    filterNeighborhood: "Neighborhood",
     filterRooms: "rooms",
     filterMaxPrice: "Up to ₪{price}/mo",
     emptyTitle: "No results found",

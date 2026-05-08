@@ -4,6 +4,7 @@ export type { Listing, DealLabel } from "./mockData";
 
 export type ListingsParams = {
   city?: string;
+  neighborhood?: string;
   rooms?: string | number;
   max_price?: string | number;
 };
@@ -23,6 +24,7 @@ export async function getListings(params: ListingsParams): Promise<Listing[]> {
 
   const query = new URLSearchParams();
   if (params.city) query.set("city", String(params.city));
+  if (params.neighborhood) query.set("neighborhood", String(params.neighborhood));
   if (params.rooms) query.set("rooms", String(params.rooms));
   if (params.max_price) query.set("max_price", String(params.max_price));
 
@@ -54,6 +56,13 @@ export async function getListing(id: string): Promise<Listing> {
   });
 
   if (!res.ok) throw new Error(`Listing not found: ${id}`);
+  return res.json();
+}
+
+export async function getNeighborhoods(city: string): Promise<string[]> {
+  if (IS_DEV) return [];
+  const res = await fetch(`${API_BASE}/api/neighborhoods?city=${encodeURIComponent(city)}`);
+  if (!res.ok) return [];
   return res.json();
 }
 

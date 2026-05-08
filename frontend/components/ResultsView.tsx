@@ -18,6 +18,7 @@ const CITY_LABELS: Record<string, { he: string; en: string }> = {
 
 type SearchParams = {
   city?: string;
+  neighborhood?: string;
   rooms?: string;
   max_price?: string;
 };
@@ -41,7 +42,7 @@ export default function ResultsView({ listings, searchParams }: Props) {
     ? t.filterMaxPrice.replace("{price}", Number(searchParams.max_price).toLocaleString())
     : null;
 
-  const hasFilters = searchParams.city || searchParams.rooms || searchParams.max_price;
+  const hasFilters = searchParams.city || searchParams.neighborhood || searchParams.rooms || searchParams.max_price;
 
   return (
     <main className="min-h-screen px-4 py-6 md:py-10 max-w-6xl mx-auto">
@@ -76,6 +77,9 @@ export default function ResultsView({ listings, searchParams }: Props) {
           <div className="flex flex-wrap gap-2 mt-3">
             {cityLabel && (
               <FilterChip label={`${t.filterCity}: ${cityLabel}`} />
+            )}
+            {searchParams.neighborhood && (
+              <FilterChip label={`${t.filterNeighborhood}: ${searchParams.neighborhood}`} />
             )}
             {searchParams.rooms && (
               <FilterChip label={`${searchParams.rooms} ${t.filterRooms}`} />

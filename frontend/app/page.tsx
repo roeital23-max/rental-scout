@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useLanguage } from "@/components/LanguageProvider";
+import { getNeighborhoods } from "@/lib/api";
 
 const CITIES_HE = [
   { value: "tel_aviv", label: "תל אביב" },
@@ -34,6 +35,8 @@ export default function HomePage() {
   const router = useRouter();
   const { lang, t } = useLanguage();
   const [city, setCity] = useState("");
+  const [neighborhood, setNeighborhood] = useState("");
+  const [neighborhoods, setNeighborhoods] = useState<string[]>([]);
   const [rooms, setRooms] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
 
@@ -43,6 +46,7 @@ export default function HomePage() {
     e.preventDefault();
     const params = new URLSearchParams();
     if (city) params.set("city", city);
+    if (neighborhood) params.set("neighborhood", neighborhood);
     if (rooms) params.set("rooms", rooms);
     if (maxPrice) params.set("max_price", maxPrice);
     router.push(`/results?${params.toString()}`);
@@ -103,7 +107,13 @@ export default function HomePage() {
           </label>
           <select
             value={city}
-            onChange={(e) => setCity(e.target.value)}
+            onChange={(e) => {
+              const v = e.target.value;
+              setCity(v);
+              setNeighborhood("");
+              setNeighborhoods([]);
+              if (v) getNeighborhoods(v).then(setNeighborhoods);
+            }}
             className="w-full px-4 py-3 border transition-colors focus:outline-none focus:border-[#1E7B7B]"
             style={inputStyle}
           >
@@ -112,6 +122,25 @@ export default function HomePage() {
               <option key={c.value} value={c.value}>
                 {c.label}
               </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Neighborhood */}
+        <div className="flex flex-col gap-2">
+          <label className="text-sm font-medium" style={{ color: "#637280" }}>
+            {t.neighborhoodLabel}
+          </label>
+          <select
+            value={neighborhood}
+            onChange={(e) => setNeighborhood(e.target.value)}
+            disabled={!city || neighborhoods.length === 0}
+            className="w-full px-4 py-3 border transition-colors focus:outline-none focus:border-[#1E7B7B] disabled:opacity-40 disabled:cursor-not-allowed"
+            style={inputStyle}
+          >
+            <option value="">{t.neighborhoodPlaceholder}</option>
+            {neighborhoods.map((n) => (
+              <option key={n} value={n}>{n}</option>
             ))}
           </select>
         </div>

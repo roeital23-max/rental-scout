@@ -3,6 +3,7 @@ import ResultsView from "@/components/ResultsView";
 
 type SearchParams = {
   city?: string;
+  neighborhood?: string;
   rooms?: string;
   max_price?: string;
 };

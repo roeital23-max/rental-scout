@@ -40,9 +40,44 @@ def _load_from_json() -> list[dict]:
 VALID_SORT = {"deal_score", "price_nis", "rooms", "sqm", "listed_at"}
 
 
+@router.get("/neighborhoods", response_model=list[str])
+def get_neighborhoods(city: str = Query(...)):
+    from api.db import get_supabase, has_supabase
+
+    if has_supabase():
+        sb = get_supabase()
+        result = (
+            sb.table("listings")
+            .select("neighborhood")
+            .eq("city", city)
+            .eq("flagged", False)
+            .execute()
+        )
+        seen: set = set()
+        hoods: list = []
+        for row in result.data:
+            n = row.get("neighborhood")
+            if n and n not in seen and n != "unknown":
+                seen.add(n)
+                hoods.append(n)
+        return sorted(hoods)
+
+    listings = _load_from_json()
+    seen = set()
+    hoods = []
+    for l in listings:
+        if l.get("city") == city and not l.get("flagged"):
+            n = l.get("neighborhood")
+            if n and n not in seen and n != "unknown":
+                seen.add(n)
+                hoods.append(n)
+    return sorted(hoods)
+
+
 @router.get("/listings", response_model=list[Listing])
 def get_listings(
     city: Optional[str] = Query(None),
+    neighborhood: Optional[str] = Query(None),
     rooms: Optional[float] = Query(None, ge=1, le=10),
     max_price: Optional[int] = Query(None, ge=0, le=100_000),
     sort: str = Query("deal_score"),
@@ -57,6 +92,8 @@ def get_listings(
         query = sb.table("listings").select("*").eq("flagged", False)
         if city:
             query = query.eq("city", city)
+        if neighborhood:
+            query = query.eq("neighborhood", neighborhood)
         if rooms is not None:
             query = query.eq("rooms", rooms)
         if max_price is not None:
@@ -70,6 +107,8 @@ def get_listings(
     listings = [l for l in listings if not l.get("flagged", False)]
     if city:
         listings = [l for l in listings if l.get("city") == city]
+    if neighborhood:
+        listings = [l for l in listings if l.get("neighborhood") == neighborhood]
     if rooms is not None:
         listings = [l for l in listings if l.get("rooms") == rooms]
     if max_price is not None:
