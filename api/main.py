@@ -19,7 +19,7 @@ app = FastAPI(
 
 ALLOWED_ORIGINS = [
     origin.strip()
-    for origin in os.getenv("ALLOWED_ORIGINS", "https://shakuf.vercel.app,http://localhost:3000").split(",")
+    for origin in os.getenv("ALLOWED_ORIGINS", "https://rental-scout-two.vercel.app,http://localhost:3000").split(",")
     if origin.strip()
 ]
 
