@@ -37,13 +37,19 @@ def _load_from_json() -> list[dict]:
         return json.load(f)
 
 
+VALID_SORT = {"deal_score", "price_nis", "rooms", "sqm", "listed_at"}
+
+
 @router.get("/listings", response_model=list[Listing])
 def get_listings(
     city: Optional[str] = Query(None),
-    rooms: Optional[float] = Query(None),
-    max_price: Optional[int] = Query(None),
+    rooms: Optional[float] = Query(None, ge=1, le=10),
+    max_price: Optional[int] = Query(None, ge=0, le=100_000),
     sort: str = Query("deal_score"),
 ):
+    if sort not in VALID_SORT:
+        raise HTTPException(status_code=422, detail=f"Invalid sort field. Choose from: {sorted(VALID_SORT)}")
+
     from api.db import get_supabase, has_supabase
 
     if has_supabase():

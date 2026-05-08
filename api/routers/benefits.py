@@ -37,8 +37,8 @@ def _matches(program: dict, income: int, family_size: int, owns_home: bool, is_o
 
 @router.get("/benefits", response_model=list[BenefitProgram])
 def get_benefits(
-    income: int = Query(..., description="Monthly household income in NIS"),
-    family_size: int = Query(..., description="Number of people in household"),
+    income: int = Query(..., ge=0, le=500_000, description="Monthly household income in NIS"),
+    family_size: int = Query(..., ge=1, le=20, description="Number of people in household"),
     owns_home: bool = Query(False),
     is_oleh: bool = Query(False),
 ):
