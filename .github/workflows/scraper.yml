@@ -37,3 +37,7 @@ jobs:
 
       - name: Scrape ${{ matrix.city }}
         run: caffeinate -dims python3 scraper/run.py --playwright --city ${{ matrix.city }}
+
+      - name: Kill orphan Chromium processes
+        if: always()
+        run: pkill -f chromium || true
