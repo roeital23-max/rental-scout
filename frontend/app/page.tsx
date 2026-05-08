@@ -131,18 +131,21 @@ export default function HomePage() {
           <label className="text-sm font-medium" style={{ color: "#637280" }}>
             {t.neighborhoodLabel}
           </label>
-          <select
+          <input
+            type="text"
+            list="neighborhoods-list"
             value={neighborhood}
             onChange={(e) => setNeighborhood(e.target.value)}
-            disabled={!city || neighborhoods.length === 0}
+            disabled={!city}
+            placeholder={t.neighborhoodPlaceholder}
             className="w-full px-4 py-3 border transition-colors focus:outline-none focus:border-[#1E7B7B] disabled:opacity-40 disabled:cursor-not-allowed"
             style={inputStyle}
-          >
-            <option value="">{t.neighborhoodPlaceholder}</option>
+          />
+          <datalist id="neighborhoods-list">
             {neighborhoods.map((n) => (
-              <option key={n} value={n}>{n}</option>
+              <option key={n} value={n} />
             ))}
-          </select>
+          </datalist>
         </div>
 
         {/* Rooms */}
