@@ -40,9 +40,6 @@ USER_AGENT = (
 PAGE_DELAY = 2.5   # seconds between page navigations
 MAX_PAGES  = 25    # safety cap per city (~20-40 listings/page → 500-1000 max)
 
-AMENITY_DELAY = 0.8        # seconds between individual listing page loads
-AMENITY_TIMEOUT = 10_000   # ms timeout per listing page
-AMENITY_SCRAPE_CAP = 400   # max apartments to enrich per city per run
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -185,6 +182,9 @@ def parse_listing(item: dict, city_key: str) -> Optional[dict]:
         listed_at    = datetime.now(timezone.utc).isoformat()[:10]
         listing_type = _detect_listing_type(title, price, rooms, sqm, property_text)
 
+        tags     = item.get("tags") or []
+        features = _extract_amenities_from_tags(tags)
+
         return {
             "id":           f"yad2-{token}",
             "url":          url,
@@ -196,7 +196,7 @@ def parse_listing(item: dict, city_key: str) -> Optional[dict]:
             "floor":        int(floor),
             "price_nis":    price,
             "listing_type": listing_type,
-            "features":     [],   # populated later by amenity enrichment phase
+            "features":     features,
             "listed_at":    listed_at,
             "scraped_at":   listed_at,
         }
@@ -205,41 +205,42 @@ def parse_listing(item: dict, city_key: str) -> Optional[dict]:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Amenity extraction from individual listing pages
+# Amenity extraction from the feed's tags array
 # ─────────────────────────────────────────────────────────────────────────────
 
-# Hebrew keyword → feature key. Scanned against the full __NEXT_DATA__ JSON string
-# of the individual listing page, so structural changes don't break it.
-AMENITY_KEYWORDS = {
-    "מרפסת":          "balcony",
-    'ממ"ד':           "mamad",
-    "ממד":            "mamad",          # alternate spelling without quotes
-    "חניה":           "parking",
-    "חנייה":          "parking",
-    "גינה":           "garden",
-    "מחסן":           "storage",
-    "מעלית":          "elevator",
-    "מיזוג":          "air_conditioning",
-    "שיפוץ":          "renovated",
-    "בנייה חדשה":     "new_building",
-    "גישה לנכים":     "accessibility",
-    "מקלט ציבורי":    "public_shelter",
-    "מקלט דיירים":    "building_shelter",
-    "מרחב מוגן":      "mamad",          # generic safe room
+# Yad2 feed items have a top-level "tags" array: [{"name": "חניה", "id": 1003}, ...]
+# Map tag names → our feature keys. Only tags that indicate a property feature
+# are included here — view/marketing tags (נוף פתוח, בהזדמנות, etc.) are ignored.
+TAG_NAME_TO_FEATURE = {
+    "מרפסת":        "balcony",
+    'ממ"ד':         "mamad",
+    "ממד":          "mamad",
+    "חניה":         "parking",
+    "חנייה":        "parking",
+    "גינה":         "garden",
+    "מחסן":         "storage",
+    "מעלית":        "elevator",
+    "מיזוג":        "air_conditioning",
+    "שיפוץ":        "renovated",
+    "בנייה חדשה":   "new_building",
+    "גישה לנכים":   "accessibility",
+    "מקלט ציבורי":  "public_shelter",
+    "מקלט דיירים":  "building_shelter",
+    "מרחב מוגן":    "mamad",
 }
 
 
-def _extract_amenities_from_nd(nd: dict) -> list:
+def _extract_amenities_from_tags(tags: list) -> list:
     """
-    Scan a single listing page's __NEXT_DATA__ for amenity keywords.
-    Returns a deduplicated list of feature key strings (e.g. ["balcony", "parking"]).
-    Using string search is resilient to Yad2 restructuring their data model.
+    Extract feature keys from a Yad2 feed item's tags array.
+    Tags are structured objects (name + id) — exact match only, no false positives.
     """
-    nd_str = json.dumps(nd, ensure_ascii=False)
     seen: set = set()
     found: list = []
-    for heb_key, feature_key in AMENITY_KEYWORDS.items():
-        if heb_key in nd_str and feature_key not in seen:
+    for tag in tags:
+        name = tag.get("name", "")
+        feature_key = TAG_NAME_TO_FEATURE.get(name)
+        if feature_key and feature_key not in seen:
             seen.add(feature_key)
             found.append(feature_key)
     return found
@@ -313,35 +314,6 @@ def scrape_city(city_key: str) -> list:
                     break
 
                 time.sleep(PAGE_DELAY)
-
-            # ── Phase 2: Amenity enrichment ──────────────────────────────────
-            apartments = [l for l in all_listings if l.get("listing_type") == "apartment"]
-            to_enrich  = apartments[:AMENITY_SCRAPE_CAP]
-            print(f"\n  [{city_display}] Enriching amenities for "
-                  f"{len(to_enrich)}/{len(apartments)} apartments...")
-
-            ok_count = 0
-            for i, listing in enumerate(to_enrich):
-                token = listing["id"].replace("yad2-", "")
-                item_url = f"https://www.yad2.co.il/item/{token}"
-                try:
-                    page.goto(item_url, wait_until="networkidle",
-                              timeout=AMENITY_TIMEOUT)
-                    nd = _read_next_data(page)
-                    if nd:
-                        listing["features"] = _extract_amenities_from_nd(nd)
-                        ok_count += 1
-                except Exception:
-                    pass  # timeout or error — leave features as []
-
-                if (i + 1) % 50 == 0:
-                    print(f"    {i + 1}/{len(to_enrich)} enriched "
-                          f"({ok_count} with data)...")
-
-                time.sleep(AMENITY_DELAY)
-
-            print(f"  [{city_display}] Amenity enrichment done "
-                  f"({ok_count}/{len(to_enrich)} had data)")
 
             browser.close()
 
