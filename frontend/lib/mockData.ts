@@ -11,6 +11,7 @@ export type Listing = {
   neighborhood: string;
   rooms: number;
   sqm: number;
+  sqm_built?: number | null;
   floor: number;
   price_nis: number;
   deal_score: number; // % deviation from neighborhood median (negative = below median = good deal)
