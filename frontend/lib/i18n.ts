@@ -123,6 +123,17 @@ export const strings = {
     pricingFreeDesc: "לשוכר שרוצה לבדוק עסקה לפני שחותם",
     pricingRenterDesc: "לשוכרים פעילים שמחפשים את הדירה הבאה",
     pricingB2bDesc: "לחברות השמה, מעסיקים ויועצי נדל\"ן",
+
+    // Trends page
+    trendsBack: "← חזרה לתוצאות",
+    trendsCurrentMedian: "חציון נוכחי",
+    trends12mo: "שינוי ב-12 חודשים",
+    trendsPriceTrend: "מגמת מחיר · 12 חודשים",
+    trendsMedianRent: "שכירות חציונית · ₪/חודש",
+    trendsNote: "מגמה המבוססת על נתוני מודעות קיימות · מתעדכן עם גרידות חדשות",
+    trendsNoNeighborhood: "לא נבחרה שכונה. חזור לתוצאות החיפוש ולחץ על שכונה.",
+    trendsError: "לא ניתן לטעון נתוני מגמה — בדוק שה-API פועל.",
+    trendsLoading: "טוען נתוני מגמה...",
   },
 
   en: {
@@ -247,6 +258,17 @@ export const strings = {
     pricingFreeDesc: "For renters who want to check a deal before signing",
     pricingRenterDesc: "For active renters searching for their next apartment",
     pricingB2bDesc: "For HR teams, employers, and real estate advisors",
+
+    // Trends page
+    trendsBack: "← Back to results",
+    trendsCurrentMedian: "Current median",
+    trends12mo: "12-month change",
+    trendsPriceTrend: "12-month price trend",
+    trendsMedianRent: "Median rent · ₪/month",
+    trendsNote: "Synthetic trend based on current listing data · updates when new listings are scraped",
+    trendsNoNeighborhood: "No neighborhood selected. Go back to search results and click a neighborhood.",
+    trendsError: "Could not load trend data — check that the API is running.",
+    trendsLoading: "Loading trend data…",
   },
 } as const;
 
