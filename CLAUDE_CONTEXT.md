@@ -23,27 +23,40 @@ Built solo using Claude. Zero external developers. Bootstrap budget.
 > ⚠️ UPDATE THIS SECTION AT THE END OF EVERY SESSION
 
 ```
-Date of last update  : 2026-04-15
-Current phase        : Phase 2 MVP — scoring model + listing detail page complete
-Last completed task  : (1) Scoring model upgraded: price-per-sqm primary metric, floor premiums,
-                           feature premiums, roommate/parking detection (property.text + heuristics)
-                       (2) Listing detail page: app/listing/[id]/page.tsx — all listing fields,
-                           price analysis card (deviation%, ₪/sqm), Yad2 CTA, trend chart
-                       (3) Amenity scraping: Phase 2 in scrape_city() — loads each apartment's
-                           individual Yad2 page, scans __NEXT_DATA__ for Hebrew amenity keywords.
-                           Cap: 400 apartments/city (~2h full run for all 4 cities)
+Date of last update  : 2026-05-08
+Current phase        : Phase 2 MVP — scraper fully automated + security hardening complete
+Last completed task  : (1) Nightly scraper fully automated on self-hosted Mac runner:
+                           - Mac auto-wakes at 01:00 via `pmset repeat wakeorpoweron`
+                           - launchd plist (/Library/LaunchDaemons/com.rentalscout.wake-caffeinate.plist)
+                             runs `caffeinate -dims -t 300` at 01:00 to keep Mac awake 5 min
+                           - GitHub Actions runner installed as launchd service (./svc.sh install)
+                           - `caffeinate -dims` embedded in scrape step to stay awake for full run
+                           - Orphan Chromium cleanup step added (pkill -f chromium || true, if: always())
+                           - Cron changed to `5 22 */2 * *` = 01:05 AM Israel summer time (UTC+3)
+                       (2) Supabase schema fixed — added missing columns:
+                           ALTER TABLE listings ADD COLUMN flag_reasons text[] DEFAULT '{}';
+                           ALTER TABLE listings ADD COLUMN flagged boolean DEFAULT false;
+                       (3) Security hardening (commit 1229945):
+                           - CORS restricted to shakuf.vercel.app + localhost:3000 via ALLOWED_ORIGINS env var
+                           - Structured request logging middleware (request_id, path, params, status, ms)
+                           - Input bounds on listings: rooms (1–10), max_price (0–100k), VALID_SORT allowlist
+                           - Input bounds on benefits: income (0–500k), family_size (1–20)
+                           - Next.js security headers: X-Frame-Options, X-Content-Type-Options,
+                             Referrer-Policy, Content-Security-Policy on all routes
 Currently building   : —
 Next task queued     : Auth (NextAuth.js) OR Nadlan.gov.il fetcher for sale comps
 Blockers / notes     : Madlan deferred — PerimeterX blocks all scraping at ₪0 budget
                        Yad2 headed mode (headless=False) required — opens visible Chrome window
-                       Only tel_aviv tested so far; other 3 cities untested
-                       Amenity scraping unverified on real run — __NEXT_DATA__ path on listing
-                         pages is inferred; first real run will confirm or need path fix
+                       Amenity scraping verified — all 4 cities (tel_aviv, jerusalem, haifa,
+                         beer_sheva) completed successfully in production run 2026-05-08
                        Python runtime is 3.9.6 — use Optional[X] not X | None syntax
                        Node.js via nvm v24.14.1 (PATH: ~/.nvm/versions/node/v24.14.1/bin)
                        Backend runs on :8000, frontend on :3000 (Turbopack)
                        Trend data: partially real (258 price_history rows in Supabase);
                          older months filled synthetically using hardcoded CBS district drift rates
+                       WINTER TIMEZONE: In October Israel switches to UTC+2. Cron 5 22 */2 will
+                         then fire at 00:05 AM (before auto-wake). Will need to change wake time
+                         to 00:00 or adjust cron to `5 23 */2 * *` when DST ends.
 ```
 
 ---
@@ -51,7 +64,7 @@ Blockers / notes     : Madlan deferred — PerimeterX blocks all scraping at ₪
 ## 🗺️ Phase Roadmap
 
 ### 🚧 Phase 1 — Data Foundation (Weeks 1–4) | Budget: ₪0
-- [x] Yad2 scraper (`scraper/yad2_scraper.py`) — ✅ 1,388 real listings collected, scoring + amenity enrichment working
+- [x] Yad2 scraper (`scraper/yad2_scraper.py`) — ✅ all 4 cities verified in production (2026-05-08), scoring + amenity enrichment working
 - [~] CBS housing index data pipeline (`scraper/cbs_pipeline.py`) — ⛔ dropped; not needed because:
        (1) CBS data is district-level only, not neighborhood-level — too coarse for listing scores
        (2) CBS publishes with a 6–8 week lag — our own scraped price_history is more current
@@ -90,6 +103,12 @@ Blockers / notes     : Madlan deferred — PerimeterX blocks all scraping at ₪
 - [ ] NextAuth.js — Google OAuth + email magic link
 - [ ] Upstash Redis — rate limiting (5 searches/day free tier cap)
 - [ ] WhatsApp alert bot → Twilio $15 free signup credit (~300 messages)
+
+**Security**
+- [x] CORS restricted to production origin + localhost via ALLOWED_ORIGINS env var
+- [x] Structured request logging middleware (request_id, method, path, params, status, ms)
+- [x] Input validation bounds on all query params (listings + benefits routers)
+- [x] Next.js security headers (X-Frame-Options, CSP, Referrer-Policy)
 
 ### 🔲 Phase 3 — Growth & Revenue (Weeks 11–20) | Budget: ~₪2,000/mo
 - [ ] Freemium subscription (Stripe)
@@ -363,6 +382,11 @@ Language        : Hebrew primary (RTL), English secondary (LTR)
 | Phase 2 | Deal score = price-per-sqm deviation, not absolute price | sqm normalizes for apartment size — a 150sqm flat is not "overpriced" just because it costs more than a 60sqm. Floor premium (±2–7%) and feature premiums (parking +4%, renovated +3%, etc.) applied to expected ₪/sqm before deviation computed. Falls back to absolute-price comparison when sqm is 0 or ≤5. |
 | Phase 2 | listing_type gate before scoring | Roommate ads (per-room price) and parking spots corrupt neighborhood medians if included. Detected via `additionalDetails.property.text` (authoritative Yad2 field, e.g. "חניה") first, then keyword matching, then heuristics. Excluded from median computation; get deal_label = "roommate"/"parking". |
 | Phase 2 | Amenity scraping via per-listing __NEXT_DATA__ string scan | "מה יש בנכס" amenities are NOT in Yad2 search feed — only on individual listing pages. After feed scraping, Phase 2 opens each apartment's URL in the same Playwright browser and scans full __NEXT_DATA__ JSON string for Hebrew keywords. String scan is resilient to Yad2 restructuring. Cap: 400/city. Full run ~2h. |
+| Phase 2 | Self-hosted Mac runner + pmset + launchd for nightly scraper | GitHub-hosted runners can't bypass Imperva/Yad2 bot detection. Mac runner runs Playwright in headed mode (visible Chrome). Auto-wake via `pmset repeat wakeorpoweron` + launchd plist at 01:00 AM. Runner installed as launchd service via `./svc.sh install`. |
+| Phase 2 | caffeinate -dims embedded in GitHub Actions scrape step | Mac sleeps mid-run and cuts Playwright network connections ("The operation was canceled"). Fix: `caffeinate -dims python3 scraper/run.py ...` in the workflow step keeps the Mac display-awake and disk-active for the full run duration. |
+| Phase 2 | Orphan Chromium cleanup step in scraper workflow | Playwright leaves Chromium processes running after a city scrape completes. This caused the GitHub Actions job to appear "running" indefinitely and fail after the timeout. Fix: `pkill -f chromium || true` with `if: always()` ensures cleanup even on job failure. |
+| Phase 2 | CORS via ALLOWED_ORIGINS env var, not hardcoded list | Hardcoding origins means code changes to add preview/staging URLs. Env var allows adding origins in Render.com settings without a deploy. Default covers production + localhost. |
+| Phase 2 | Security headers in next.config.mjs, not middleware | Next.js `headers()` config applies to all routes including static assets via CDN edge. Middleware runs only on server routes. Using config ensures headers reach all Vercel responses. |
 
 ---
 
