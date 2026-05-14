@@ -26,7 +26,7 @@ jobs:
 
     steps:
       - name: Pull latest code
-        run: git pull
+        run: git pull || true
 
       - name: Install dependencies
         run: |
