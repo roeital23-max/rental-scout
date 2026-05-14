@@ -20,11 +20,10 @@ jobs:
       SUPABASE_URL:      ${{ secrets.SUPABASE_URL }}
       SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
 
-    defaults:
-      run:
-        working-directory: /Users/roeital/Documents/Rental Scout
-
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Install dependencies
         run: |
           python3 -m venv .venv
