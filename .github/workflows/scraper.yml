@@ -20,18 +20,14 @@ jobs:
       SUPABASE_URL:      ${{ secrets.SUPABASE_URL }}
       SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
 
-    defaults:
-      run:
-        working-directory: /Users/roeital/Documents/Rental Scout
-
     steps:
-      - name: Pull latest code
-        run: git pull || true
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Install dependencies
         run: |
-          python3 -m pip install --user -r scraper/requirements.txt
-          python3 -m pip install --user -r requirements.txt
+          python3 -m pip install -r scraper/requirements.txt
+          python3 -m pip install -r requirements.txt
 
       - name: Install Playwright browsers
         run: python3 -m playwright install chromium
