@@ -16,7 +16,7 @@ function rowToUser(row: Record<string, unknown>): AdapterUser {
 }
 
 export const supabaseAdapter: Adapter = {
-  async createUser(user) {
+  async createUser(user: Omit<AdapterUser, "id">) {
     const { data, error } = await getSupabase()
       .from("users")
       .insert({ name: user.name, email: user.email, image: user.image, emailVerified: user.emailVerified?.toISOString() ?? null })
@@ -60,7 +60,7 @@ export const supabaseAdapter: Adapter = {
     return rowToUser(data);
   },
 
-  async linkAccount(account) {
+  async linkAccount(account: AdapterAccount) {
     await getSupabase().from("accounts").upsert({
       userId: account.userId,
       type: account.type,
