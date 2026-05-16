@@ -48,12 +48,12 @@ export default async function ListingPage({
   const isSpecialType = listing.listing_type === "roommate" || listing.listing_type === "parking";
 
   // Price-per-sqm analysis
-  // Use sqm_built if it exists and differs from sqm by more than 10%
+  // Use sqm_built if it exists and differs from sqm
   const sqmBuilt = listing.sqm_built ?? 0;
   const sqmBuiltDiffers =
     sqmBuilt > 5 &&
     listing.sqm > 5 &&
-    Math.abs(sqmBuilt - listing.sqm) / listing.sqm > 0.10;
+    sqmBuilt !== listing.sqm;
   const effectiveSqm = sqmBuiltDiffers ? sqmBuilt : listing.sqm;
   const hasSqm = effectiveSqm > 5;
   const ppsqm = hasSqm ? Math.round(listing.price_nis / effectiveSqm) : null;
