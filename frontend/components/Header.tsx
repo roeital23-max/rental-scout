@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import LanguageToggle from "./LanguageToggle";
+import AuthButton from "./AuthButton";
 import { useLanguage } from "./LanguageProvider";
 
 export default function Header() {
@@ -46,8 +47,11 @@ export default function Header() {
           })}
         </nav>
 
-        {/* Language toggle */}
-        <LanguageToggle />
+        {/* Auth + Language */}
+        <div className="flex items-center gap-2">
+          <AuthButton />
+          <LanguageToggle />
+        </div>
       </div>
     </header>
   );

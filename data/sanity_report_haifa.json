@@ -1,0 +1,143 @@
+{
+  "city": "haifa",
+  "scraped_at": "2026-05-08",
+  "total_listings": 995,
+  "apartment_listings": 974,
+  "critical_count": 4,
+  "warning_count": 2,
+  "aggregate": {
+    "pct_sqm_missing": 0.2,
+    "pct_features_empty": 98.7,
+    "pct_great_deal": 18.0,
+    "pct_overpriced": 23.7,
+    "warnings": []
+  },
+  "flagged": [
+    {
+      "id": "yad2-wdmq7hdd",
+      "severity": "CRITICAL",
+      "neighborhood": "קרית שפרינצק",
+      "rooms": 5.0,
+      "sqm": 1,
+      "floor": 2,
+      "price_nis": 5000,
+      "deal_score": -39.4,
+      "deal_label": "great_deal",
+      "listing_type": "apartment",
+      "checks": [
+        [
+          "CRITICAL",
+          "sqm=1 (data entry error)"
+        ],
+        [
+          "WARNING",
+          "ppsqm=₪5000.0 > 500"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/wdmq7hdd"
+    },
+    {
+      "id": "yad2-qh9f1y32",
+      "severity": "CRITICAL",
+      "neighborhood": "כרמל מערבי",
+      "rooms": 9.0,
+      "sqm": 280,
+      "floor": 0,
+      "price_nis": 11000,
+      "deal_score": 0.0,
+      "deal_label": "fair",
+      "listing_type": "apartment",
+      "checks": [
+        [
+          "CRITICAL",
+          "rooms=9.0 > 8"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/qh9f1y32"
+    },
+    {
+      "id": "yad2-7kdqv0dm",
+      "severity": "WARNING",
+      "neighborhood": "קרית חיים מערבית",
+      "rooms": 3.0,
+      "sqm": 360,
+      "floor": 0,
+      "price_nis": 4500,
+      "deal_score": 25.5,
+      "deal_label": "overpriced",
+      "listing_type": "apartment",
+      "checks": [
+        [
+          "WARNING",
+          "ppsqm=₪12.5 < 15 (sqm=360)"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/7kdqv0dm"
+    },
+    {
+      "id": "yad2-whcrjd2l",
+      "severity": "CRITICAL",
+      "neighborhood": "הדר עליון",
+      "rooms": 2.5,
+      "sqm": 1055,
+      "floor": 1,
+      "price_nis": 3500,
+      "deal_score": 30.8,
+      "deal_label": "overpriced",
+      "listing_type": "apartment",
+      "checks": [
+        [
+          "CRITICAL",
+          "sqm=1055 > 1000"
+        ],
+        [
+          "WARNING",
+          "sqm=1055 > 750"
+        ],
+        [
+          "WARNING",
+          "ppsqm=₪3.3 < 15 (sqm=1055)"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/whcrjd2l"
+    },
+    {
+      "id": "yad2-edsmf5f9",
+      "severity": "WARNING",
+      "neighborhood": "קרית חיים מערבית",
+      "rooms": 4.0,
+      "sqm": 500,
+      "floor": 0,
+      "price_nis": 5500,
+      "deal_score": -22.1,
+      "deal_label": "great_deal",
+      "listing_type": "apartment",
+      "checks": [
+        [
+          "WARNING",
+          "ppsqm=₪11.0 < 15 (sqm=500)"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/edsmf5f9"
+    },
+    {
+      "id": "yad2-0iwhpjia",
+      "severity": "CRITICAL",
+      "neighborhood": "נווה שאנן",
+      "rooms": 9.0,
+      "sqm": 200,
+      "floor": 0,
+      "price_nis": 10000,
+      "deal_score": 0.0,
+      "deal_label": "fair",
+      "listing_type": "apartment",
+      "checks": [
+        [
+          "CRITICAL",
+          "rooms=9.0 > 8"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/0iwhpjia"
+    }
+  ]
+}

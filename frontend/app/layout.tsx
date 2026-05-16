@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Sans, DM_Mono } from "next/font/google";
 import "./globals.css";
-import { LanguageProvider } from "@/components/LanguageProvider";
+import { Providers } from "@/components/Providers";
 import Header from "@/components/Header";
 
 const dmSans = DM_Sans({
@@ -36,10 +36,10 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="bg-brand-bg text-txt-primary min-h-screen" suppressHydrationWarning>
-        <LanguageProvider>
+        <Providers>
           <Header />
           {children}
-        </LanguageProvider>
+        </Providers>
       </body>
     </html>
   );

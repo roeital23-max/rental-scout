@@ -134,6 +134,19 @@ export const strings = {
     trendsNoNeighborhood: "לא נבחרה שכונה. חזור לתוצאות החיפוש ולחץ על שכונה.",
     trendsError: "לא ניתן לטעון נתוני מגמה — בדוק שה-API פועל.",
     trendsLoading: "טוען נתוני מגמה...",
+
+    // Auth
+    signIn: "כניסה",
+    signOut: "יציאה",
+    signInTitle: "כניסה ל-Shakuf",
+    signInSub: "התחבר כדי לגשת לכל האפשרויות",
+    signInGoogle: "כניסה עם Google",
+    signInOr: "או",
+    signInEmailPlaceholder: "כתובת אימייל",
+    signInEmailBtn: "שלח קישור כניסה",
+    signInSending: "שולח...",
+    signInEmailSent: "בדוק את האימייל שלך",
+    signInEmailSentSub: "שלחנו קישור כניסה — תוקפו 24 שעות",
   },
 
   en: {
@@ -269,6 +282,19 @@ export const strings = {
     trendsNoNeighborhood: "No neighborhood selected. Go back to search results and click a neighborhood.",
     trendsError: "Could not load trend data — check that the API is running.",
     trendsLoading: "Loading trend data…",
+
+    // Auth
+    signIn: "Sign in",
+    signOut: "Sign out",
+    signInTitle: "Sign in to Shakuf",
+    signInSub: "Sign in to access all features",
+    signInGoogle: "Continue with Google",
+    signInOr: "or",
+    signInEmailPlaceholder: "Email address",
+    signInEmailBtn: "Send magic link",
+    signInSending: "Sending…",
+    signInEmailSent: "Check your inbox",
+    signInEmailSentSub: "We sent you a sign-in link — valid for 24 hours",
   },
 } as const;
 

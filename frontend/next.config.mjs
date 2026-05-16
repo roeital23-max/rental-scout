@@ -19,6 +19,7 @@ const securityHeaders = [
 ];
 
 const nextConfig = {
+  serverExternalPackages: ["nodemailer"],
   allowedDevOrigins: ["10.100.102.7"],
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];

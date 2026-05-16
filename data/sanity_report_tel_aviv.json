@@ -1,0 +1,315 @@
+{
+  "city": "tel_aviv",
+  "scraped_at": "2026-05-08",
+  "total_listings": 1027,
+  "apartment_listings": 1003,
+  "critical_count": 4,
+  "warning_count": 10,
+  "aggregate": {
+    "pct_sqm_missing": 0.1,
+    "pct_features_empty": 97.8,
+    "pct_great_deal": 24.0,
+    "pct_overpriced": 23.2,
+    "warnings": []
+  },
+  "flagged": [
+    {
+      "id": "yad2-1s6e3qed",
+      "severity": "WARNING",
+      "neighborhood": "הצפון הישן - צפון",
+      "rooms": 4.0,
+      "sqm": 160,
+      "floor": 4,
+      "price_nis": 80000,
+      "deal_score": 250.1,
+      "deal_label": "overpriced",
+      "listing_type": "apartment",
+      "checks": [
+        [
+          "WARNING",
+          "deal_score=250.1 (extreme)"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/1s6e3qed"
+    },
+    {
+      "id": "yad2-gmif8c5x",
+      "severity": "WARNING",
+      "neighborhood": "הצפון הישן - דרום",
+      "rooms": 2.0,
+      "sqm": 50,
+      "floor": 2,
+      "price_nis": 111,
+      "deal_score": -98.5,
+      "deal_label": "great_deal",
+      "listing_type": "apartment",
+      "checks": [
+        [
+          "WARNING",
+          "ppsqm=₪2.2 < 15 (sqm=50)"
+        ],
+        [
+          "WARNING",
+          "deal_score=-98.5 (extreme)"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/gmif8c5x"
+    },
+    {
+      "id": "yad2-0j0jtgvu",
+      "severity": "CRITICAL",
+      "neighborhood": "הגוש הגדול, רמת אביב החדשה, נופי ים",
+      "rooms": 4.0,
+      "sqm": 1337,
+      "floor": 3,
+      "price_nis": 13200,
+      "deal_score": -2.2,
+      "deal_label": "fair",
+      "listing_type": "apartment",
+      "checks": [
+        [
+          "CRITICAL",
+          "sqm=1337 > 1000"
+        ],
+        [
+          "WARNING",
+          "sqm=1337 > 750"
+        ],
+        [
+          "WARNING",
+          "ppsqm=₪9.9 < 15 (sqm=1337)"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/0j0jtgvu"
+    },
+    {
+      "id": "yad2-xjewrra8",
+      "severity": "WARNING",
+      "neighborhood": "לב תל אביב, לב העיר צפון",
+      "rooms": 8.0,
+      "sqm": 525,
+      "floor": 5,
+      "price_nis": 105000,
+      "deal_score": 0.0,
+      "deal_label": "fair",
+      "listing_type": "apartment",
+      "checks": [
+        [
+          "WARNING",
+          "price=₪105000 > 80,000"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/xjewrra8"
+    },
+    {
+      "id": "yad2-zspr8hoz",
+      "severity": "WARNING",
+      "neighborhood": "הצפון הישן - דרום",
+      "rooms": 3.0,
+      "sqm": 80,
+      "floor": 2,
+      "price_nis": 11500,
+      "deal_score": -98.8,
+      "deal_label": "great_deal",
+      "listing_type": "apartment",
+      "checks": [
+        [
+          "WARNING",
+          "deal_score=-98.8 (extreme)"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/zspr8hoz"
+    },
+    {
+      "id": "yad2-79g8436u",
+      "severity": "CRITICAL",
+      "neighborhood": "הצפון הישן - דרום",
+      "rooms": 1.0,
+      "sqm": 1,
+      "floor": 0,
+      "price_nis": 1300,
+      "deal_score": 0.0,
+      "deal_label": "parking",
+      "listing_type": "parking",
+      "checks": [
+        [
+          "CRITICAL",
+          "sqm=1 (data entry error)"
+        ],
+        [
+          "WARNING",
+          "ppsqm=₪1300.0 > 500"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/79g8436u"
+    },
+    {
+      "id": "yad2-snkln9ca",
+      "severity": "WARNING",
+      "neighborhood": "הצפון החדש - צפון",
+      "rooms": 4.5,
+      "sqm": 120,
+      "floor": 0,
+      "price_nis": 550,
+      "deal_score": 0.0,
+      "deal_label": "parking",
+      "listing_type": "parking",
+      "checks": [
+        [
+          "WARNING",
+          "ppsqm=₪4.6 < 15 (sqm=120)"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/snkln9ca"
+    },
+    {
+      "id": "yad2-95745x0g",
+      "severity": "WARNING",
+      "neighborhood": "הצפון הישן - צפון",
+      "rooms": 4.0,
+      "sqm": 160,
+      "floor": 4,
+      "price_nis": 80000,
+      "deal_score": 250.1,
+      "deal_label": "overpriced",
+      "listing_type": "apartment",
+      "checks": [
+        [
+          "WARNING",
+          "deal_score=250.1 (extreme)"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/95745x0g"
+    },
+    {
+      "id": "yad2-4tm9oqfq",
+      "severity": "WARNING",
+      "neighborhood": "כוכב הצפון",
+      "rooms": 5.0,
+      "sqm": 18,
+      "floor": 2,
+      "price_nis": 20000,
+      "deal_score": -0.3,
+      "deal_label": "fair",
+      "listing_type": "apartment",
+      "checks": [
+        [
+          "WARNING",
+          "ppsqm=₪1111.1 > 500"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/4tm9oqfq"
+    },
+    {
+      "id": "yad2-yreb4uki",
+      "severity": "WARNING",
+      "neighborhood": "נאות אפקה ב'",
+      "rooms": 4.0,
+      "sqm": 10,
+      "floor": 1,
+      "price_nis": 6800,
+      "deal_score": 643.5,
+      "deal_label": "overpriced",
+      "listing_type": "apartment",
+      "checks": [
+        [
+          "WARNING",
+          "ppsqm=₪680.0 > 500"
+        ],
+        [
+          "WARNING",
+          "deal_score=643.5 (extreme)"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/yreb4uki"
+    },
+    {
+      "id": "yad2-0rg3dwb7",
+      "severity": "WARNING",
+      "neighborhood": "יד אליהו",
+      "rooms": 7.0,
+      "sqm": 1000,
+      "floor": 2,
+      "price_nis": 7000,
+      "deal_score": 0.0,
+      "deal_label": "fair",
+      "listing_type": "apartment",
+      "checks": [
+        [
+          "WARNING",
+          "sqm=1000 > 750"
+        ],
+        [
+          "WARNING",
+          "ppsqm=₪7.0 < 15 (sqm=1000)"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/0rg3dwb7"
+    },
+    {
+      "id": "yad2-v7l83qyc",
+      "severity": "CRITICAL",
+      "neighborhood": "הצפון הישן - דרום",
+      "rooms": 2.0,
+      "sqm": 1,
+      "floor": 1,
+      "price_nis": 8650,
+      "deal_score": 4.5,
+      "deal_label": "fair",
+      "listing_type": "apartment",
+      "checks": [
+        [
+          "CRITICAL",
+          "sqm=1 (data entry error)"
+        ],
+        [
+          "WARNING",
+          "ppsqm=₪8650.0 > 500"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/v7l83qyc"
+    },
+    {
+      "id": "yad2-2sqlyzj8",
+      "severity": "CRITICAL",
+      "neighborhood": "לב תל אביב, לב העיר צפון",
+      "rooms": 3.0,
+      "sqm": 1,
+      "floor": 3,
+      "price_nis": 12000,
+      "deal_score": -4.0,
+      "deal_label": "fair",
+      "listing_type": "apartment",
+      "checks": [
+        [
+          "CRITICAL",
+          "sqm=1 (data entry error)"
+        ],
+        [
+          "WARNING",
+          "ppsqm=₪12000.0 > 500"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/2sqlyzj8"
+    },
+    {
+      "id": "yad2-j563eipm",
+      "severity": "WARNING",
+      "neighborhood": "מונטיפיורי, הרכבת",
+      "rooms": 4.0,
+      "sqm": 14,
+      "floor": 32,
+      "price_nis": 11000,
+      "deal_score": -10.6,
+      "deal_label": "great_deal",
+      "listing_type": "apartment",
+      "checks": [
+        [
+          "WARNING",
+          "ppsqm=₪785.7 > 500"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/j563eipm"
+    }
+  ]
+}

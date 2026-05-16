@@ -1,0 +1,311 @@
+{
+  "city": "jerusalem",
+  "scraped_at": "2026-05-08",
+  "total_listings": 929,
+  "apartment_listings": 890,
+  "critical_count": 6,
+  "warning_count": 8,
+  "aggregate": {
+    "pct_sqm_missing": 0.2,
+    "pct_features_empty": 97.8,
+    "pct_great_deal": 19.2,
+    "pct_overpriced": 22.5,
+    "warnings": []
+  },
+  "flagged": [
+    {
+      "id": "yad2-u05kj2bm",
+      "severity": "WARNING",
+      "neighborhood": "unknown",
+      "rooms": 4.0,
+      "sqm": 180,
+      "floor": 0,
+      "price_nis": 50000,
+      "deal_score": 218.3,
+      "deal_label": "overpriced",
+      "listing_type": "apartment",
+      "checks": [
+        [
+          "WARNING",
+          "deal_score=218.3 (extreme)"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/u05kj2bm"
+    },
+    {
+      "id": "yad2-9hzb6bk6",
+      "severity": "WARNING",
+      "neighborhood": "מורדות ארנונה",
+      "rooms": 4.0,
+      "sqm": 121,
+      "floor": 2,
+      "price_nis": 8000,
+      "deal_score": -90.9,
+      "deal_label": "great_deal",
+      "listing_type": "apartment",
+      "checks": [
+        [
+          "WARNING",
+          "deal_score=-90.9 (extreme)"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/9hzb6bk6"
+    },
+    {
+      "id": "yad2-8nu7h7m5",
+      "severity": "CRITICAL",
+      "neighborhood": "טלביה, קוממיות",
+      "rooms": 12.0,
+      "sqm": 360,
+      "floor": 8,
+      "price_nis": 60000,
+      "deal_score": 0.0,
+      "deal_label": "fair",
+      "listing_type": "apartment",
+      "checks": [
+        [
+          "CRITICAL",
+          "rooms=12.0 > 8"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/8nu7h7m5"
+    },
+    {
+      "id": "yad2-228tffpz",
+      "severity": "CRITICAL",
+      "neighborhood": "קרית הלאום",
+      "rooms": 2.0,
+      "sqm": 1300,
+      "floor": 0,
+      "price_nis": 50000,
+      "deal_score": 0.0,
+      "deal_label": "parking",
+      "listing_type": "parking",
+      "checks": [
+        [
+          "CRITICAL",
+          "sqm=1300 > 1000"
+        ],
+        [
+          "WARNING",
+          "sqm=1300 > 750"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/228tffpz"
+    },
+    {
+      "id": "yad2-id6dt98a",
+      "severity": "WARNING",
+      "neighborhood": "מרכז העיר",
+      "rooms": 3.0,
+      "sqm": 85,
+      "floor": 2,
+      "price_nis": 800,
+      "deal_score": 0.0,
+      "deal_label": "parking",
+      "listing_type": "parking",
+      "checks": [
+        [
+          "WARNING",
+          "ppsqm=₪9.4 < 15 (sqm=85)"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/id6dt98a"
+    },
+    {
+      "id": "yad2-46ghdkdi",
+      "severity": "WARNING",
+      "neighborhood": "קטמון הישנה",
+      "rooms": 4.5,
+      "sqm": 200,
+      "floor": 0,
+      "price_nis": 1000,
+      "deal_score": 0.0,
+      "deal_label": "fair",
+      "listing_type": "apartment",
+      "checks": [
+        [
+          "WARNING",
+          "ppsqm=₪5.0 < 15 (sqm=200)"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/46ghdkdi"
+    },
+    {
+      "id": "yad2-t7pdqkex",
+      "severity": "WARNING",
+      "neighborhood": "קרית היובל",
+      "rooms": 2.5,
+      "sqm": 49,
+      "floor": 4,
+      "price_nis": 3900,
+      "deal_score": 151.8,
+      "deal_label": "overpriced",
+      "listing_type": "apartment",
+      "checks": [
+        [
+          "WARNING",
+          "deal_score=151.8 (extreme)"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/t7pdqkex"
+    },
+    {
+      "id": "yad2-8gknptsk",
+      "severity": "WARNING",
+      "neighborhood": "מאה שערים",
+      "rooms": 2.5,
+      "sqm": 40,
+      "floor": 5,
+      "price_nis": 350,
+      "deal_score": 0.0,
+      "deal_label": "parking",
+      "listing_type": "parking",
+      "checks": [
+        [
+          "WARNING",
+          "ppsqm=₪8.8 < 15 (sqm=40)"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/8gknptsk"
+    },
+    {
+      "id": "yad2-p1518fb0",
+      "severity": "CRITICAL",
+      "neighborhood": "מקור חיים",
+      "rooms": 6.0,
+      "sqm": 1500,
+      "floor": 0,
+      "price_nis": 40000,
+      "deal_score": 0.0,
+      "deal_label": "fair",
+      "listing_type": "apartment",
+      "checks": [
+        [
+          "CRITICAL",
+          "sqm=1500 > 1000"
+        ],
+        [
+          "WARNING",
+          "sqm=1500 > 750"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/p1518fb0"
+    },
+    {
+      "id": "yad2-gjpwimdb",
+      "severity": "WARNING",
+      "neighborhood": "מרכז העיר",
+      "rooms": 3.5,
+      "sqm": 185,
+      "floor": 22,
+      "price_nis": 87500,
+      "deal_score": 455.6,
+      "deal_label": "overpriced",
+      "listing_type": "apartment",
+      "checks": [
+        [
+          "WARNING",
+          "price=₪87500 > 80,000"
+        ],
+        [
+          "WARNING",
+          "deal_score=455.6 (extreme)"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/gjpwimdb"
+    },
+    {
+      "id": "yad2-rvca8uiz",
+      "severity": "WARNING",
+      "neighborhood": "בקעה",
+      "rooms": 5.0,
+      "sqm": 200,
+      "floor": 0,
+      "price_nis": 1800,
+      "deal_score": 0.0,
+      "deal_label": "fair",
+      "listing_type": "apartment",
+      "checks": [
+        [
+          "WARNING",
+          "ppsqm=₪9.0 < 15 (sqm=200)"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/rvca8uiz"
+    },
+    {
+      "id": "yad2-c6boyu15",
+      "severity": "CRITICAL",
+      "neighborhood": "רוממה",
+      "rooms": 3.0,
+      "sqm": 75000,
+      "floor": 4,
+      "price_nis": 11500,
+      "deal_score": 0.0,
+      "deal_label": "fair",
+      "listing_type": "apartment",
+      "checks": [
+        [
+          "CRITICAL",
+          "sqm=75000 > 1000"
+        ],
+        [
+          "WARNING",
+          "sqm=75000 > 750"
+        ],
+        [
+          "WARNING",
+          "ppsqm=₪0.2 < 15 (sqm=75000)"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/c6boyu15"
+    },
+    {
+      "id": "yad2-33ezxtif",
+      "severity": "CRITICAL",
+      "neighborhood": "רחביה",
+      "rooms": 3.5,
+      "sqm": 1,
+      "floor": 8,
+      "price_nis": 10500,
+      "deal_score": 16.7,
+      "deal_label": "overpriced",
+      "listing_type": "apartment",
+      "checks": [
+        [
+          "CRITICAL",
+          "sqm=1 (data entry error)"
+        ],
+        [
+          "WARNING",
+          "ppsqm=₪10500.0 > 500"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/33ezxtif"
+    },
+    {
+      "id": "yad2-m3i56e1m",
+      "severity": "CRITICAL",
+      "neighborhood": "תלפיות",
+      "rooms": 3.0,
+      "sqm": 1,
+      "floor": 3,
+      "price_nis": 1667,
+      "deal_score": -73.1,
+      "deal_label": "great_deal",
+      "listing_type": "apartment",
+      "checks": [
+        [
+          "CRITICAL",
+          "sqm=1 (data entry error)"
+        ],
+        [
+          "WARNING",
+          "ppsqm=₪1667.0 > 500"
+        ]
+      ],
+      "url": "https://www.yad2.co.il/item/m3i56e1m"
+    }
+  ]
+}
