@@ -67,7 +67,34 @@ function SignInForm() {
               {t.signInGoogle}
             </button>
 
-            {/* Email magic link — re-enable once Supabase adapter is wired */}
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t" style={{ borderColor: "#DDE4E8" }} />
+              </div>
+              <div className="relative flex justify-center text-xs" style={{ color: "#637280" }}>
+                <span className="px-2 bg-white">{t.signInOr}</span>
+              </div>
+            </div>
+
+            <form onSubmit={handleEmail} className="flex flex-col gap-3">
+              <input
+                type="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                placeholder={t.signInEmailPlaceholder}
+                required
+                className="w-full px-4 py-3 text-sm border outline-none focus:ring-2 focus:ring-[#1E7B7B]/30"
+                style={inputStyle}
+              />
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-3 text-sm font-medium text-white rounded-lg"
+                style={{ backgroundColor: "#1E7B7B", borderRadius: 10 }}
+              >
+                {loading ? t.signInSending : t.signInEmailBtn}
+              </button>
+            </form>
           </>
         )}
       </div>
