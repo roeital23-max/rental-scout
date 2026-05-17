@@ -28,7 +28,10 @@ const ROOMS = [
   { value: "3", labelHe: "3 חדרים", labelEn: "3 rooms" },
   { value: "3.5", labelHe: "3.5 חדרים", labelEn: "3.5 rooms" },
   { value: "4", labelHe: "4 חדרים", labelEn: "4 rooms" },
-  { value: "4.5", labelHe: "4.5+ חדרים", labelEn: "4.5+ rooms" },
+  { value: "4.5", labelHe: "4.5 חדרים", labelEn: "4.5 rooms" },
+  { value: "5", labelHe: "5 חדרים", labelEn: "5 rooms" },
+  { value: "5.5", labelHe: "5.5 חדרים", labelEn: "5.5 rooms" },
+  { value: "6", labelHe: "6 חדרים", labelEn: "6 rooms" },
 ];
 
 export default function HomePage() {
