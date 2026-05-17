@@ -1,5 +1,7 @@
 "use client";
 
+import { Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { useLanguage } from "@/components/LanguageProvider";
 
 type Plan = {
@@ -42,11 +44,29 @@ const PLANS: Plan[] = [
   },
 ];
 
+function LimitBanner() {
+  const { t } = useLanguage();
+  const params = useSearchParams();
+  if (!params.get("limit")) return null;
+  return (
+    <div
+      className="mb-8 px-5 py-4 rounded-xl text-center"
+      style={{ backgroundColor: "#FFF3CD", border: "1px solid #FFC107" }}
+    >
+      <p className="font-semibold text-sm" style={{ color: "#856404" }}>{t.limitReachedTitle}</p>
+      <p className="text-sm mt-1" style={{ color: "#856404" }}>{t.limitReachedSub}</p>
+    </div>
+  );
+}
+
 export default function PricingPage() {
   const { t } = useLanguage();
 
   return (
     <main className="min-h-screen px-4 py-6 md:py-10 max-w-5xl mx-auto">
+      <Suspense fallback={null}>
+        <LimitBanner />
+      </Suspense>
       {/* Hero */}
       <div className="text-center mb-10 md:mb-12">
         <h1 className="text-2xl md:text-3xl font-bold text-txt-primary mb-2">

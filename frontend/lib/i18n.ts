@@ -135,6 +135,10 @@ export const strings = {
     trendsError: "לא ניתן לטעון נתוני מגמה — בדוק שה-API פועל.",
     trendsLoading: "טוען נתוני מגמה...",
 
+    // Rate limit
+    limitReachedTitle: "הגעת למגבלת 5 החיפושים היומית",
+    limitReachedSub: "שדרג לתוכנית השוכר לחיפושים ללא הגבלה.",
+
     // Auth
     signIn: "כניסה",
     signOut: "יציאה",
@@ -282,6 +286,10 @@ export const strings = {
     trendsNoNeighborhood: "No neighborhood selected. Go back to search results and click a neighborhood.",
     trendsError: "Could not load trend data — check that the API is running.",
     trendsLoading: "Loading trend data…",
+
+    // Rate limit
+    limitReachedTitle: "You've reached your 5 daily searches",
+    limitReachedSub: "Upgrade to the Renter plan for unlimited searches.",
 
     // Auth
     signIn: "Sign in",
