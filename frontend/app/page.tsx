@@ -32,6 +32,7 @@ const ROOMS = [
   { value: "5", labelHe: "5 חדרים", labelEn: "5 rooms" },
   { value: "5.5", labelHe: "5.5 חדרים", labelEn: "5.5 rooms" },
   { value: "6", labelHe: "6 חדרים", labelEn: "6 rooms" },
+  { value: "6+", labelHe: "6+ חדרים", labelEn: "6+ rooms" },
 ];
 
 export default function HomePage() {

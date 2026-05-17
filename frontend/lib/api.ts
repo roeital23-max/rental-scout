@@ -25,7 +25,13 @@ export async function getListings(params: ListingsParams): Promise<Listing[]> {
   const query = new URLSearchParams();
   if (params.city) query.set("city", String(params.city));
   if (params.neighborhood) query.set("neighborhood", String(params.neighborhood));
-  if (params.rooms) query.set("rooms", String(params.rooms));
+  if (params.rooms) {
+    if (String(params.rooms) === "6+") {
+      query.set("rooms_min", "6");
+    } else {
+      query.set("rooms", String(params.rooms));
+    }
+  }
   if (params.max_price) query.set("max_price", String(params.max_price));
 
   const res = await fetch(`${API_BASE}/api/listings?${query.toString()}`, {
@@ -74,8 +80,12 @@ function filterMockListings(params: ListingsParams): Listing[] {
   }
 
   if (params.rooms) {
-    const rooms = Number(params.rooms);
-    results = results.filter((l) => l.rooms === rooms);
+    if (String(params.rooms) === "6+") {
+      results = results.filter((l) => l.rooms >= 6);
+    } else {
+      const rooms = Number(params.rooms);
+      results = results.filter((l) => l.rooms === rooms);
+    }
   }
 
   if (params.max_price) {

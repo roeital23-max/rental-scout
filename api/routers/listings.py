@@ -79,6 +79,7 @@ def get_listings(
     city: Optional[str] = Query(None),
     neighborhood: Optional[str] = Query(None),
     rooms: Optional[float] = Query(None, ge=1, le=10),
+    rooms_min: Optional[float] = Query(None, ge=1, le=10),
     max_price: Optional[int] = Query(None, ge=0, le=100_000),
     sort: str = Query("deal_score"),
 ):
@@ -96,6 +97,8 @@ def get_listings(
             query = query.eq("neighborhood", neighborhood)
         if rooms is not None:
             query = query.eq("rooms", rooms)
+        if rooms_min is not None:
+            query = query.gte("rooms", rooms_min)
         if max_price is not None:
             query = query.lte("price_nis", max_price)
         query = query.order("deal_score", desc=False).limit(5000)
@@ -111,6 +114,8 @@ def get_listings(
         listings = [l for l in listings if l.get("neighborhood") == neighborhood]
     if rooms is not None:
         listings = [l for l in listings if l.get("rooms") == rooms]
+    if rooms_min is not None:
+        listings = [l for l in listings if (l.get("rooms") or 0) >= rooms_min]
     if max_price is not None:
         listings = [l for l in listings if l.get("price_nis", 0) <= max_price]
     listings.sort(key=lambda l: l.get("deal_score", 0))
