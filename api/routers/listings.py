@@ -15,6 +15,7 @@ class Listing(BaseModel):
     url: str
     city: str
     neighborhood: str
+    street: Optional[str] = None
     rooms: float
     sqm: int
     sqm_built: Optional[int] = 0
@@ -28,6 +29,7 @@ class Listing(BaseModel):
     features: List[str] = Field(default_factory=list)
     flagged: bool = False
     flag_reasons: List[str] = Field(default_factory=list)
+    yield_pct: Optional[float] = None
 
 
 def _load_from_json() -> list[dict]:

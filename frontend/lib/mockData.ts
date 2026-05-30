@@ -9,6 +9,7 @@ export type Listing = {
   url: string;
   city: string;
   neighborhood: string;
+  street?: string | null;
   rooms: number;
   sqm: number;
   sqm_built?: number | null;
@@ -19,6 +20,7 @@ export type Listing = {
   listing_type: ListingType;
   listed_at: string;
   features: Feature[];
+  yield_pct?: number | null;
 };
 
 export const MOCK_LISTINGS: Listing[] = [

@@ -36,9 +36,10 @@ UPSERT_BATCH = 500  # Supabase row limit per request
 def _upsert_listings(sb, listings: list) -> None:
     """Batch-upsert listings into Supabase. Skips fields not in DB schema."""
     DB_FIELDS = {
-        "id", "url", "city", "neighborhood", "rooms", "sqm", "sqm_built",
+        "id", "url", "city", "neighborhood", "street", "rooms", "sqm", "sqm_built",
         "floor", "price_nis", "deal_score", "deal_label", "listing_type",
         "features", "listed_at", "scraped_at", "flagged", "flag_reasons",
+        "yield_pct",
     }
     rows = [{k: v for k, v in l.items() if k in DB_FIELDS} for l in listings]
 
@@ -145,6 +146,27 @@ def cmd_yad2(city_keys, use_playwright: bool):
         json.dump(listings, f, ensure_ascii=False, indent=2)
     with open(MEDIANS_FILE, "w", encoding="utf-8") as f:
         json.dump(medians, f, ensure_ascii=False, indent=2)
+
+    # Fetch GovMap sold-price comps and compute yield_pct per listing
+    print("\nFetching GovMap sold-price comps for yield calculation…")
+    try:
+        from scraper.govmap_scraper import run_govmap
+        comps = run_govmap(LISTINGS_FILE)
+        for l in listings:
+            city = l.get("city", "")
+            street = l.get("street", "")
+            sqm = l.get("sqm_built", 0) if (l.get("sqm_built", 0) or 0) > 5 else l.get("sqm", 0)
+            price = l.get("price_nis", 0)
+            sold_ppsqm = comps.get(city, {}).get(street, {}).get("price_per_sqm")
+            if sold_ppsqm and sqm and sqm > 5:
+                l["yield_pct"] = round((price / sqm * 12) / sold_ppsqm * 100, 1)
+            else:
+                l["yield_pct"] = None
+        with open(LISTINGS_FILE, "w", encoding="utf-8") as f:
+            json.dump(listings, f, ensure_ascii=False, indent=2)
+        print(f"  Yield populated for {sum(1 for l in listings if l.get('yield_pct'))} listings")
+    except Exception as e:
+        print(f"  GovMap skipped: {e}")
 
     # Write to Supabase if credentials are configured
     write_to_supabase(listings, medians)

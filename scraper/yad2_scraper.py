@@ -17,6 +17,7 @@ import json
 import time
 import statistics
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Optional
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -166,6 +167,7 @@ def parse_listing(item: dict, city_key: str) -> Optional[dict]:
         metadata = item.get("metaData", {})
 
         neighborhood = addr.get("neighborhood", {}).get("text") or "unknown"
+        street       = (addr.get("street") or {}).get("text") or ""
         floor        = addr.get("house", {}).get("floor", 0)
         rooms_raw    = details.get("roomsCount")
         sqm          = int(details.get("squareMeter") or 0)
@@ -190,6 +192,7 @@ def parse_listing(item: dict, city_key: str) -> Optional[dict]:
             "url":          url,
             "city":         city_key,
             "neighborhood": neighborhood,
+            "street":       street,
             "rooms":        rooms,
             "sqm":          sqm,
             "sqm_built":    sqm_built,
@@ -443,6 +446,13 @@ def compute_medians(listings: list) -> tuple:
 
 
 def score_listings(listings: list, medians: dict, ppsqm_medians: dict) -> list:
+    govmap_path = Path(__file__).parent.parent / "data" / "govmap_comps.json"
+    govmap_comps: dict = {}
+    if govmap_path.exists():
+        import json as _json
+        with open(govmap_path, encoding="utf-8") as _f:
+            govmap_comps = _json.load(_f).get("neighborhoods", {})
+
     scored = []
     for l in listings:
         listing_type = l.get("listing_type", "apartment")
@@ -451,6 +461,7 @@ def score_listings(listings: list, medians: dict, ppsqm_medians: dict) -> list:
         if listing_type != "apartment":
             l["deal_score"] = 0.0
             l["deal_label"] = listing_type
+            l["yield_pct"] = None
             scored.append(l)
             continue
 
@@ -484,6 +495,7 @@ def score_listings(listings: list, medians: dict, ppsqm_medians: dict) -> list:
             if median is None or median == 0:
                 l["deal_score"] = 0.0
                 l["deal_label"] = "fair"
+                l["yield_pct"] = None
                 scored.append(l)
                 continue
             deviation = round((price - median) / median * 100, 1)
@@ -494,6 +506,13 @@ def score_listings(listings: list, medians: dict, ppsqm_medians: dict) -> list:
             else "overpriced" if deviation > 10
             else "fair"
         )
+
+        sold_ppsqm = govmap_comps.get(city, {}).get(l.get("street", ""), {}).get("price_per_sqm")
+        if sold_ppsqm and eff_sqm and eff_sqm > 5:
+            l["yield_pct"] = round((price / eff_sqm * 12) / sold_ppsqm * 100, 1)
+        else:
+            l["yield_pct"] = None
+
         scored.append(l)
     return scored
 

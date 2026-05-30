@@ -210,6 +210,16 @@ export default async function ListingPage({
             </div>
           )}
 
+          {/* Rental yield */}
+          {listing.yield_pct && (
+            <div className="flex justify-between text-sm mt-2 pt-2" style={{ borderTop: "1px solid #DDE4E8" }}>
+              <span style={{ color: "#637280" }}>תשואה שנתית</span>
+              <span style={{ fontFamily: "var(--font-dm-mono), monospace", color: "#1E7B7B", fontWeight: 700 }}>
+                {listing.yield_pct}%
+              </span>
+            </div>
+          )}
+
           {/* Listed date */}
           <p className="text-xs mt-3" style={{ color: "#637280" }}>
             {he.listedOn}: {listing.listed_at}
